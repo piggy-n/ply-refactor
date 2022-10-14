@@ -1,1 +1,4 @@
-export { default as Icon } from '@/components/Icon';
+import Icon from '@/components/Icon';
+
+export default Icon;
+export { Icon };
