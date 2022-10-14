@@ -5,7 +5,7 @@ import { classes } from '@/utils/methods/classes';
 import './styles/icon.scss';
 import '@/utils/methods/importAll';
 
-export interface IconProps extends SVGAttributes<SVGElement> {
+interface IconProps extends SVGAttributes<SVGElement> {
     fill?: string;
     name: string;
     size?: number;

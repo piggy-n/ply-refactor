@@ -1,6 +1,11 @@
-import { IconProps } from './components/Icon/Icon';
+import type { CSSProperties, SVGAttributes } from 'react';
 
-interface CompoundedComponent extends IconProps {
+interface CompoundedComponent extends SVGAttributes<SVGElement> {
+    fill?: string;
+    name: string;
+    size?: number;
+    title?: string;
+    useStyles?: CSSProperties;
 }
 
 declare const Icon: CompoundedComponent;
