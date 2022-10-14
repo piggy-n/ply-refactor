@@ -4,12 +4,12 @@ type boolObj = Record<string, boolean>
 
 const prefixClassName = 'ws';
 
-export const classes = (componentName: string, ...args: any): string => {
+export const classes = (componentName: string, ...args: unknown[]): string => {
     const className = new Array<string>();
 
     args.forEach((arg: unknown) => {
             if (isString(arg)) {
-                className.push(`${prefixClassName}-${componentName.toLowerCase()}${arg && '-' + arg}`);
+                className.push(`${prefixClassName}-${componentName.toLowerCase()}${arg && `-${arg}`}`);
             }
 
             if (isArray(arg)) {
@@ -18,7 +18,12 @@ export const classes = (componentName: string, ...args: any): string => {
 
             if (isObject(arg)) {
                 for (const key in arg as boolObj) {
-                    if ((arg as boolObj).hasOwnProperty.bind(key) && (arg as boolObj)[key]) {
+                    if (
+                        (arg as boolObj)
+                            .hasOwnProperty
+                            .bind(key)
+                        && (arg as boolObj)[key]
+                    ) {
                         className.push(key);
                     }
                 }
@@ -26,5 +31,7 @@ export const classes = (componentName: string, ...args: any): string => {
         }
     );
 
-    return className.filter(v => v).join(' ');
+    return className
+        .filter(v => v)
+        .join(' ');
 };
