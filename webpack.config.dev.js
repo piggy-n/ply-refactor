@@ -45,6 +45,7 @@ module.exports = merge(common, {
             template: "src/demo/index.html",
             inject: "body",
             hash: false,
+            title: "Player Development",
         }),
         new webpack.HotModuleReplacementPlugin(),
     ],

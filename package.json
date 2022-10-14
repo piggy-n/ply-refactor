@@ -1,6 +1,6 @@
 {
-  "name": "a_ref",
-  "version": "1.0.0",
+  "name": "pgy-plyr",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "ISC",
   "scripts": {
