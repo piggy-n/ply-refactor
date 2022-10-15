@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useMemo } from 'react';
 import type { CSSProperties, FC, SVGAttributes } from 'react';
 import { classes } from '@/utils/methods/classes';
-import './styles/icon.scss';
+import '@/assets/styles/global.scss';
 import '@/utils/methods/importAll';
 
 interface IconProps extends SVGAttributes<SVGElement> {

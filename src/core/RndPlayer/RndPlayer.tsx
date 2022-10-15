@@ -3,7 +3,7 @@ import { Rnd } from 'react-rnd';
 import type { FC } from 'react';
 import type { RndPlayerProps } from '@/index.d';
 import { classes } from '@/utils/methods/classes';
-import './styles/rndPlayer.scss';
+import '@/assets/styles/global.scss';
 import { DEFAULT_PLAYER_OPTS } from '@/core/RndPlayer/config';
 
 const cn = 'Rnd-Player';
