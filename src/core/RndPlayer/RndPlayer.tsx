@@ -5,11 +5,13 @@ import type { RndPlayerProps, DefaultPositionAndSize } from '@/index.d';
 import { classes } from '@/utils/methods/classes';
 import '@/assets/styles/global.scss';
 import { DEFAULT_PLAYER_OPTS } from '@/core/RndPlayer/config';
+import { renderHeader } from '@/utils/methods/render';
 
 const cn = 'Rnd-Player';
 
 const RndPlayer: FC<RndPlayerProps> = (
     {
+        header = 'default',
         playerOpts = {},
     }
 ) => {
@@ -29,6 +31,7 @@ const RndPlayer: FC<RndPlayerProps> = (
             maxWidth={innerWidth}
             maxHeight={innerHeight}
         >
+            {renderHeader(header)}
         </Rnd>
     );
 };

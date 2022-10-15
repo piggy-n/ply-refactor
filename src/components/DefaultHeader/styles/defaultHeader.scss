@@ -1,0 +1,13 @@
+@import 'src/assets/styles/mixin.scss';
+
+.ws-default-header {
+  @include fr(space-between, center, nowrap);
+  @include wh(100%, 36px);
+  background: $default-header-color;
+  cursor: move;
+
+  svg,
+  use {
+    cursor: pointer;
+  }
+}

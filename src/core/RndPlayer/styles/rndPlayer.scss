@@ -1,6 +1,6 @@
 @import "src/assets/styles/mixin.scss";
 
 .ws-rnd-player {
-  background-color: $default-video-bg-color;
-  cursor: default;
+  border: 1px solid $default-border-color;
+  cursor: default !important;
 }
