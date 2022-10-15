@@ -6,7 +6,6 @@ import { classes } from '@/utils/methods/classes';
 import '@/assets/styles/global.scss';
 import { DEFAULT_PLAYER_OPTS } from '@/core/RndPlayer/config';
 import { renderHeader } from '@/utils/methods/render';
-import { useEffect } from 'react';
 
 const cn = 'Rnd-Player';
 
