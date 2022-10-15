@@ -1,0 +1,53 @@
+$theme-active-color: #16AEE0FF;
+$theme-normal-color: #B5D8EEFF;
+$default-header-color: #071E27BF;
+$default-border-color: #1E6079FF;
+$default-video-bg-color: #545454CC;
+
+@mixin wh($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+@mixin full() {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin mwh($w, $h) {
+  min-width: $w;
+  min-height: $h;
+}
+
+@mixin ps($type, $t: auto, $r: auto, $b: auto, $l: auto) {
+  position: $type;
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+}
+
+@mixin center($w, $h) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $w;
+  height: $h;
+}
+
+@mixin fr($jc, $ai: center, $fw: wrap) {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: $fw;
+  justify-content: $jc;
+  align-items: $ai;
+}
+
+@mixin fd($jc, $ai: center, $fw: wrap) {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: $fw;
+  justify-content: $jc;
+  align-items: $ai;
+}
