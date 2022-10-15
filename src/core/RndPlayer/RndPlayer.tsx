@@ -6,6 +6,7 @@ import { classes } from '@/utils/methods/classes';
 import '@/assets/styles/global.scss';
 import { DEFAULT_PLAYER_OPTS } from '@/core/RndPlayer/config';
 import { renderHeader } from '@/utils/methods/render';
+import { useEffect } from 'react';
 
 const cn = 'Rnd-Player';
 
@@ -30,6 +31,7 @@ const RndPlayer: FC<RndPlayerProps> = (
             style={style}
             maxWidth={innerWidth}
             maxHeight={innerHeight}
+            lockAspectRatio
         >
             {renderHeader(header)}
         </Rnd>

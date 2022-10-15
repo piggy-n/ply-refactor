@@ -1,6 +1,10 @@
 @import "src/assets/styles/mixin.scss";
 
 .ws-rnd-player {
+  @include fd(flex-start);
   border: 1px solid $default-border-color;
   cursor: default !important;
+  user-select: none;
+  margin: 0;
+  z-index: 10;
 }
