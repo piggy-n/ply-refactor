@@ -1,5 +1,9 @@
 import type { CSSProperties } from 'react';
 
+/**
+ * @description 设备信息
+ * @typedef {Device} PlayerOpts
+ */
 export type Device<T = string, U = boolean> = {
     /**
      * 设备ID
@@ -17,7 +21,11 @@ export type Device<T = string, U = boolean> = {
     status?: U;
 }
 
-export type DefaultPositionAndSize<T = number> = {
+/**
+ * @description 播放器默认位置
+ * @typedef {DefaultPosition} PlayerOpts
+ */
+export type DefaultPosition<T = number> = {
     /**
      * left-position
      */
@@ -26,6 +34,13 @@ export type DefaultPositionAndSize<T = number> = {
      * top-position
      */
     y: T;
+}
+
+/**
+ * @description 播放器默认尺寸
+ * @typedef {DefaultSize} PlayerOpts
+ */
+export type DefaultSize<T = number> = {
     /**
      * 宽
      */
@@ -36,11 +51,25 @@ export type DefaultPositionAndSize<T = number> = {
     height: T;
 }
 
+/**
+ * @description 播放器默认位置和尺寸
+ * @typedef {DefaultPositionAndSize}
+ */
+export type DefaultPositionAndSize<T = number> = DefaultPosition<T> & DefaultSize<T>;
+
+/**
+ * @description 播放器配置
+ * @typedef {PlayerOpts}
+ */
 export type PlayerOpts = {
     /**
-     * 默认位置和大小
+     * 默认位置
      */
-    defaultPositionAndSize?: DefaultPositionAndSize;
+    defaultPosition?: DefaultPosition;
+    /**
+     * 默认大小
+     */
+    defaultSize?: DefaultSize;
     /**
      * 拖拽边界
      */
@@ -51,6 +80,10 @@ export type PlayerOpts = {
     style?: CSSProperties;
 }
 
+/**
+ * @description RndPlayer配置
+ * @typedef {RndPlayerProps}
+ */
 export interface RndPlayerProps {
     /**
      * 设备信息配置
