@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
-import Icon from '@/components/Icon';
+import RndPlayer from '@/core/RndPlayer';
 
 const Demo = () => {
     return (
-        <>
-            <h1>Hello</h1>
-            <Icon name={'close'}/>
-        </>
+        <div style={{
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0, 0, 0, 0.1)',
+        }}>
+            <RndPlayer/>
+        </div>
     );
 };
 
