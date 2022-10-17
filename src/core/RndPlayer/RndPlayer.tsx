@@ -19,7 +19,7 @@ const RndPlayer: FC<RndPlayerProps> = (
 ) => {
     const {
         bounds = DEFAULT_PLAYER_OPTS.bounds,
-        defaultSize = DEFAULT_PLAYER_OPTS.defaultSize,
+        defaultSize = DEFAULT_PLAYER_OPTS.defaultSize!,
         // defaultPosition = DEFAULT_PLAYER_OPTS.defaultPosition,
         style,
     } = playerOpts;
@@ -58,8 +58,8 @@ const RndPlayer: FC<RndPlayerProps> = (
             style={style}
             maxWidth={innerWidth}
             maxHeight={innerHeight}
-            minHeight={defaultSize!.height}
-            minWidth={defaultSize!.width}
+            minHeight={defaultSize.height}
+            minWidth={defaultSize.width}
             lockAspectRatio
         >
             <div
@@ -67,7 +67,7 @@ const RndPlayer: FC<RndPlayerProps> = (
                 className={classes(
                     cn,
                     'container',
-                    [`mw-${defaultSize!.width}`, `mh-${defaultSize!.height}`]
+                    [`mw-${defaultSize.width}`, `mh-${defaultSize.height}`]
                 )}
             />
         </Rnd>
