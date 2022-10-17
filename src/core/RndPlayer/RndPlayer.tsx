@@ -4,14 +4,16 @@ import type { FC } from 'react';
 import type { RndPlayerProps } from '@/index.d';
 import { classes } from '@/utils/methods/classes';
 import '@/assets/styles/global.scss';
-import { DEFAULT_PLAYER_OPTS } from '@/core/RndPlayer/config';
-import { renderHeader } from '@/utils/methods/render';
+import { DEFAULT_PLAYER_OPTS, headerDictionaries, mainDictionaries } from '@/core/RndPlayer/config';
+import useCreate from '@/utils/hooks/useCreate';
 
 const cn = 'Rnd-Player';
+const cnPrefix = `ws-${cn.toLowerCase()}`;
 
 const RndPlayer: FC<RndPlayerProps> = (
     {
         header = 'default',
+        main = 'default',
         playerOpts = {},
     }
 ) => {
@@ -21,6 +23,29 @@ const RndPlayer: FC<RndPlayerProps> = (
         // defaultPosition = DEFAULT_PLAYER_OPTS.defaultPosition,
         style,
     } = playerOpts;
+
+    useCreate(
+        `${cnPrefix}-container`,
+        `${headerDictionaries[header]}`,
+        `${cnPrefix}-header`,
+        'header',
+        {
+            width: '100%',
+        },
+        [header]
+    );
+
+    useCreate(
+        `${cnPrefix}-container`,
+        `${mainDictionaries[main]}`,
+        `${cnPrefix}-main`,
+        'main',
+        {
+            width: '100%',
+            flex: 1,
+        },
+        [main]
+    );
 
     return (
         <Rnd
@@ -33,13 +58,14 @@ const RndPlayer: FC<RndPlayerProps> = (
             minWidth={defaultSize!.width}
             lockAspectRatio
         >
-            <div className={classes(
-                cn,
-                'container',
-                [`mw-${defaultSize!.width}`, `mh-${defaultSize!.height}`]
-            )}>
-                {renderHeader(header)}
-            </div>
+            <div
+                id={`ws-${cn.toLowerCase()}-container`}
+                className={classes(
+                    cn,
+                    'container',
+                    [`mw-${defaultSize!.width}`, `mh-${defaultSize!.height}`]
+                )}
+            />
         </Rnd>
     );
 };

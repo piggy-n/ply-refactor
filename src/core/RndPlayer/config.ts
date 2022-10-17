@@ -1,6 +1,6 @@
 import type { PlayerOpts } from '@/index.d';
 
-export const DEFAULT_PLAYER_OPTS: PlayerOpts = {
+const DEFAULT_PLAYER_OPTS: PlayerOpts = {
     defaultPosition: {
         x: 0,
         y: 0,
@@ -10,4 +10,18 @@ export const DEFAULT_PLAYER_OPTS: PlayerOpts = {
         height: 270,
     },
     bounds: 'body',
+};
+
+const headerDictionaries: Record<string, string> = {
+    'default': 'DefaultHeader',
+};
+
+const mainDictionaries: Record<string, string> = {
+    'default': 'DefaultMain',
+};
+
+export {
+    DEFAULT_PLAYER_OPTS,
+    headerDictionaries,
+    mainDictionaries,
 };

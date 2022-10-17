@@ -12,7 +12,7 @@
     border: 1px solid $default-border-color;
   }
 
-  @for $i from 1 through 3840 {
+  @for $i from 200 through 960 {
     .#{$mw-prefix}#{$i} {
       min-width: #{$i}px;
     }

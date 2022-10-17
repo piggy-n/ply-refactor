@@ -84,7 +84,13 @@ export type PlayerOpts = {
  * @description 播放器头部配置
  * @typedef {Header}
  */
-export type Header = 'default'
+export type Header = 'default' // | '...' 如有新header需求，在此处添加
+
+/**
+ * @description 播放器主体配置
+ * @typedef {Main}
+ */
+export type Main = 'default' // | '...' 如有新main需求，在此处添加
 
 /**
  * @description RndPlayer配置
@@ -103,4 +109,8 @@ export interface RndPlayerProps {
      * 播放器头部组件配置
      */
     header?: Header;
+    /**
+     * 播放器主体组件配置
+     */
+    main?: Main;
 }
