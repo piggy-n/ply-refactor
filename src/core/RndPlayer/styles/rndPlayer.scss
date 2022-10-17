@@ -1,6 +1,6 @@
 @import "src/assets/styles/mixin.scss";
 
-.ws-rnd-player {
+.#{$prefix}rnd-player {
   margin: 0;
   user-select: none;
   cursor: default !important;

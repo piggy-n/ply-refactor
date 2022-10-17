@@ -1,6 +1,6 @@
 @import '../../../../assets/styles/mixin';
 
-.ws-default-header {
+.#{$prefix}default-header {
   @include fr(space-between, center, nowrap);
   @include wh(100%, 36px);
   background: $default-header-color;

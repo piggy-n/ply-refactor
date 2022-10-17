@@ -1,8 +1,9 @@
-.ws-icon {
+@import '../../../../assets/styles/mixin';
+
+.#{$prefix}icon {
+  @include wh(16px, 16px);
   display: inline-flex;
   fill: currentColor;
   vertical-align: top;
   overflow: hidden;
-  width: 16px;
-  height: 16px;
 }
