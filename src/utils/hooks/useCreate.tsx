@@ -20,11 +20,10 @@ const useCreate = <K extends keyof HTMLElementTagNameMap, T = string>(
         () => {
             try {
                 const wrapperEle = document.querySelector(`#${wrapperId}`);
+                const containerEle = document.querySelector(`#${containerId}`)!;
 
                 if (wrapperEle) {
-                    document
-                        .querySelector(`#${containerId}`)!
-                        .removeChild(wrapperEle);
+                    containerEle.removeChild(wrapperEle);
                 }
 
                 if (!wrapperEle) {
@@ -37,20 +36,15 @@ const useCreate = <K extends keyof HTMLElementTagNameMap, T = string>(
                     Object.assign(componentWrapper.style, wrapperStyles);
 
                     if (position === 'before') {
-                        document
-                            .querySelector(`#${containerId}`)!
-                            .insertBefore(componentWrapper, document.querySelector(`#${containerId}`)!.firstChild);
+                        containerEle.insertBefore(
+                            componentWrapper,
+                            document.querySelector(`#${containerId}`)!.firstChild
+                        );
                     }
 
                     if (position === 'after') {
-                        document
-                            .querySelector(`#${containerId}`)!
-                            .appendChild(componentWrapper);
+                        containerEle.appendChild(componentWrapper);
                     }
-
-                    document
-                        .querySelector(`#${containerId}`)!
-                        .appendChild(componentWrapper);
 
                     const root = createRoot(componentWrapper);
                     root.render(<Component/>);
