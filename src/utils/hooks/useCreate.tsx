@@ -6,11 +6,12 @@ import type { DependencyList, CSSProperties } from 'react';
 const useCreate = <K extends keyof HTMLElementTagNameMap, T = string>
 (
     containerId: T,
+    componentType: 'UI' | 'CM',
     componentName: T,
     wrapperId: T,
     wrapperTagName: K,
     wrapperStyles: CSSProperties,
-    dep: DependencyList = []
+    dep: DependencyList = [],
 ) => {
     useEffect(
         () => {
@@ -24,7 +25,9 @@ const useCreate = <K extends keyof HTMLElementTagNameMap, T = string>
                 }
 
                 if (!wrapperEle) {
-                    const Component = require(`@/components/${componentName}`).default;
+                    const Component = require(
+                        `@/components/${componentType === 'UI' ? 'UIComponents' : 'CommonComponents'}/${componentName}`
+                    ).default;
                     const componentWrapper = document.createElement(wrapperTagName);
 
                     componentWrapper.id = `${wrapperId}`;

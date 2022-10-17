@@ -26,6 +26,7 @@ const RndPlayer: FC<RndPlayerProps> = (
 
     useCreate(
         `${cnPrefix}-container`,
+        'UI',
         `${headerDictionaries[header]}`,
         `${cnPrefix}-header`,
         'header',
@@ -37,6 +38,7 @@ const RndPlayer: FC<RndPlayerProps> = (
 
     useCreate(
         `${cnPrefix}-container`,
+        'UI',
         `${mainDictionaries[main]}`,
         `${cnPrefix}-main`,
         'main',
@@ -59,7 +61,7 @@ const RndPlayer: FC<RndPlayerProps> = (
             lockAspectRatio
         >
             <div
-                id={`ws-${cn.toLowerCase()}-container`}
+                id={`${cnPrefix}-container`}
                 className={classes(
                     cn,
                     'container',

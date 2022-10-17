@@ -42,11 +42,11 @@ export type DefaultPosition<T = number> = {
  */
 export type DefaultSize<T = number> = {
     /**
-     * 宽
+     * 宽 范围：200 - 960
      */
     width: T;
     /**
-     * 高
+     * 高 范围：200 - 960
      */
     height: T;
 }
@@ -67,7 +67,7 @@ export type PlayerOpts = {
      */
     defaultPosition?: DefaultPosition;
     /**
-     * 默认大小
+     * 默认大小 范围：200 - 960
      */
     defaultSize?: DefaultSize;
     /**
