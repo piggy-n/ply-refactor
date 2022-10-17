@@ -36,10 +36,7 @@ const useCreate = <K extends keyof HTMLElementTagNameMap, T = string>(
                     Object.assign(componentWrapper.style, wrapperStyles);
 
                     if (position === 'before') {
-                        containerEle.insertBefore(
-                            componentWrapper,
-                            document.querySelector(`#${containerId}`)!.firstChild
-                        );
+                        containerEle.insertBefore(componentWrapper, containerEle.firstChild);
                     }
 
                     if (position === 'after') {
