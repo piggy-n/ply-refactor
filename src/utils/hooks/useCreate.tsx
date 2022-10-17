@@ -3,14 +3,17 @@ import { createRoot } from 'react-dom/client';
 import * as React from 'react';
 import type { DependencyList, CSSProperties } from 'react';
 
-const useCreate = <K extends keyof HTMLElementTagNameMap, T = string>
-(
+type ComponentType = 'UI' | 'CM';
+type Position = 'before' | 'after';
+
+const useCreate = <K extends keyof HTMLElementTagNameMap, T = string>(
     containerId: T,
-    componentType: 'UI' | 'CM',
+    componentType: ComponentType,
     componentName: T,
     wrapperId: T,
     wrapperTagName: K,
     wrapperStyles: CSSProperties,
+    position: Position,
     dep: DependencyList = [],
 ) => {
     useEffect(
@@ -32,6 +35,18 @@ const useCreate = <K extends keyof HTMLElementTagNameMap, T = string>
 
                     componentWrapper.id = `${wrapperId}`;
                     Object.assign(componentWrapper.style, wrapperStyles);
+
+                    if (position === 'before') {
+                        document
+                            .querySelector(`#${containerId}`)!
+                            .insertBefore(componentWrapper, document.querySelector(`#${containerId}`)!.firstChild);
+                    }
+
+                    if (position === 'after') {
+                        document
+                            .querySelector(`#${containerId}`)!
+                            .appendChild(componentWrapper);
+                    }
 
                     document
                         .querySelector(`#${containerId}`)!

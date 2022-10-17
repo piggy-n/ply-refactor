@@ -33,6 +33,7 @@ const RndPlayer: FC<RndPlayerProps> = (
         {
             width: '100%',
         },
+        'before',
         [header]
     );
 
@@ -46,6 +47,7 @@ const RndPlayer: FC<RndPlayerProps> = (
             width: '100%',
             flex: 1,
         },
+        'after',
         [main]
     );
 
