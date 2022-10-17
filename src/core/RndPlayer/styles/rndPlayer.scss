@@ -1,10 +1,24 @@
 @import "src/assets/styles/mixin.scss";
 
 .ws-rnd-player {
-  @include fd(flex-start);
-  border: 1px solid $default-border-color;
-  cursor: default !important;
-  user-select: none;
   margin: 0;
+  user-select: none;
+  cursor: default !important;
   z-index: 10;
+
+  &-container {
+    @include fd(flex-start);
+    @include wh(100%, 100%);
+    border: 1px solid $default-border-color;
+  }
+
+  @for $i from 1 through 3840 {
+    .#{$mw-prefix}#{$i} {
+      min-width: #{$i}px;
+    }
+
+    .#{$mh-prefix}#{$i} {
+      min-height: #{$i}px;
+    }
+  }
 }
