@@ -22,12 +22,12 @@ export const useVideo = (ele: HTMLVideoElement, dep: DependencyList = []) => {
         bufferedTime: 0,
         ended: false,
         error: null,
+        networkState: 0,
+        readyState: 0,
         videoSize: {
             videoWidth: 0,
             videoHeight: 0
         },
-        networkState: 0,
-        readyState: 0,
     });
 
     const setVideoArgsHandler = <T extends Partial<VideoAttributes>>(val: T) => {
@@ -44,10 +44,12 @@ export const useVideo = (ele: HTMLVideoElement, dep: DependencyList = []) => {
 
     useEffect(
         () => {
-            if (videoEle.current) {
-                const video = videoEle.current;
+            if (!videoEle.current) return;
+            const video = videoEle.current;
 
-                video.addEventListener('canplay', () => {
+            video.addEventListener(
+                'canplay',
+                () => {
                     setVideoArgsHandler({
                         totalTime: video.duration,
                         videoSize: {
@@ -55,66 +57,84 @@ export const useVideo = (ele: HTMLVideoElement, dep: DependencyList = []) => {
                             videoHeight: video.videoHeight
                         },
                     });
-                });
+                }
+            );
 
-                video.addEventListener('progress', () => {
+            video.addEventListener(
+                'progress',
+                () => {
                     if (video.buffered.length >= 1) {
                         setVideoArgsHandler({
                             bufferedTime: video.buffered.end(0),
                         });
                     }
-                });
+                }
+            );
 
-                video.addEventListener('play', () => {
+            video.addEventListener(
+                'play',
+                () => {
                     setVideoArgsHandler({
                         playing: !video.paused,
                     });
-                });
+                }
+            );
 
-                video.addEventListener('pause', () => {
+            video.addEventListener(
+                'pause',
+                () => {
                     setVideoArgsHandler({
                         playing: !video.paused,
                     });
-                });
+                }
+            );
 
-                video.addEventListener('timeupdate', () => {
+            video.addEventListener(
+                'timeupdate',
+                () => {
                     setVideoArgsHandler({
                         playing: !video.paused,
                     });
-                });
+                }
+            );
 
-                video.addEventListener('ended', () => {
+            video.addEventListener(
+                'ended',
+                () => {
                     setVideoArgsHandler({
                         ended: video.ended,
                     });
-                });
+                }
+            );
 
-                video.addEventListener('error', () => {
+            video.addEventListener(
+                'error',
+                () => {
                     setVideoArgsHandler({
                         error: Date.now(),
                     });
-                });
+                }
+            );
 
-                videoInterval.current = setInterval(
-                    () => {
-                        forceUpdate();
+            videoInterval.current = setInterval(
+                () => {
+                    forceUpdate();
 
-                        setVideoArgsHandler({
-                            currentTime: video.currentTime,
-                            totalTime: video.duration,
-                            playing: !video.paused,
-                            ended: video.ended,
-                            videoSize: {
-                                videoWidth: video.videoWidth,
-                                videoHeight: video.videoHeight
-                            },
-                            networkState: video.networkState,
-                            readyState: video.readyState,
-                        });
-                    },
-                    1
-                );
-            }
+                    setVideoArgsHandler({
+                        currentTime: video.currentTime,
+                        totalTime: video.duration,
+                        playing: !video.paused,
+                        ended: video.ended,
+                        videoSize: {
+                            videoWidth: video.videoWidth,
+                            videoHeight: video.videoHeight
+                        },
+                        networkState: video.networkState,
+                        readyState: video.readyState,
+                    });
+                },
+                1
+            );
 
             return () => {
                 videoInterval.current && clearInterval(videoInterval.current);
