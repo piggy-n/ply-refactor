@@ -6,6 +6,8 @@ import { classes } from '@/utils/methods/classes';
 import '@/assets/styles/global.scss';
 import { DEFAULT_PLAYER_OPTS, headerDictionaries, mainDictionaries } from '@/core/RndPlayer/config';
 import useCreate from '@/utils/hooks/useCreate';
+import useRndPlayerStore from '@/store/useRndPlayerStore';
+import { useEffect } from 'react';
 
 const cn = 'Rnd-Player';
 const cnPrefix = `ws-${cn.toLowerCase()}`;
@@ -20,9 +22,15 @@ const RndPlayer: FC<RndPlayerProps> = (
     const {
         bounds = DEFAULT_PLAYER_OPTS.bounds,
         defaultSize = DEFAULT_PLAYER_OPTS.defaultSize!,
-        // defaultPosition = DEFAULT_PLAYER_OPTS.defaultPosition,
+        defaultPosition = DEFAULT_PLAYER_OPTS.defaultPosition!,
         style,
     } = playerOpts;
+
+    const { position, setPosition } = useRndPlayerStore(s => s);
+
+    useEffect(() => {
+        setPosition(defaultPosition);
+    }, []);
 
     useCreate(
         `${cnPrefix}-container`,
@@ -60,6 +68,8 @@ const RndPlayer: FC<RndPlayerProps> = (
             maxHeight={innerHeight}
             minHeight={defaultSize.height}
             minWidth={defaultSize.width}
+            position={position}
+            onDragStop={(e, d) => setPosition(d)}
             lockAspectRatio
         >
             <div
