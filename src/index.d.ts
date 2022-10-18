@@ -1,53 +1,93 @@
 import type { CSSProperties } from 'react';
 
+export type noArgVoid = () => void;
+
+export type isArgVoid<T> = (arg: T) => void;
+
+/**
+ * @description 视频尺寸
+ * @interface VideoSize
+ * @param {number} videoWidth 视频宽度
+ * @param {number} videoHeight 视频高度
+ */
+export type VideoSize<T = number> = {
+    videoWidth: T;
+    videoHeight: T;
+}
+
+/**
+ * @description 播放属性
+ * @interface VideoAttributes
+ * @param {boolean} playing 是否播放
+ * @param {number} currentTime 当前时间/s
+ * @param {number} totalTime 总时长
+ * @param {number} bufferedTime 缓存时长/s
+ * @param {boolean} ended 是否结束
+ * @param {null | number} error 错误
+ * @param {VideoSize} videoSize 视频尺寸
+ * @param {number} networkState 网络状态
+ * @param {number} readyState 视频就绪状态
+ */
+export type VideoAttributes<T = number, U = boolean, K = null> = {
+    playing: U;
+    currentTime: T;
+    totalTime: T;
+    bufferedTime: T;
+    ended: U;
+    error: T | K;
+    videoSize: VideoSize;
+    networkState: T;
+    readyState: T;
+}
+
+/**
+ * @description 播放器方法
+ * @param play 播放
+ * @param pause 暂停
+ * @param reload 重新加载
+ * @param setPlayProgress 设置播放进度
+ * @param setVideoSrc 设置视频源
+ */
+export type VideoMethods<T = noArgVoid, U = isArgVoid<T>> = {
+    play: T;
+    pause: T;
+    reload: T;
+    setPlayProgress: U<number>;
+    setVideoSrc: U<string>;
+}
+
 /**
  * @description 设备信息
  * @typedef {Device} PlayerOpts
+ * @param {string} id 设备id
+ * @param {string} name 设备名称
+ * @param {boolean} status 设备状态 true:在线 false:离线
  */
 export type Device<T = string, U = boolean> = {
-    /**
-     * 设备ID
-     */
     id: T;
-    /**
-     * 设备名称
-     */
     name?: T;
-    /**
-     * 设备状态
-     * true: online, false: offline
-     * @default false
-     */
     status?: U;
 }
 
 /**
  * @description 播放器默认位置
  * @typedef {DefaultPosition} PlayerOpts
+ * @param {number} x x轴坐标 left-position
+ * @param {number} y y轴坐标 top-position
  */
 export type DefaultPosition<T = number> = {
-    /**
-     * left-position
-     */
     x: T;
-    /**
-     * top-position
-     */
     y: T;
 }
 
 /**
  * @description 播放器默认尺寸
  * @typedef {DefaultSize} PlayerOpts
+ * @param {number} width 宽度 范围：200 - 960，外部传入的值会被限制在此范围内
+ * @param {number} height 高度 范围：200 - 960，外部传入的值会被限制在此范围内
  */
 export type DefaultSize<T = number> = {
-    /**
-     * 宽 范围：200 - 960
-     */
     width: T;
-    /**
-     * 高 范围：200 - 960
-     */
     height: T;
 }
 
@@ -60,23 +100,15 @@ export type DefaultPositionAndSize<T = number> = DefaultPosition<T> & DefaultSiz
 /**
  * @description 播放器配置
  * @typedef {PlayerOpts}
+ * @param {DefaultPosition} defaultPosition 默认位置
+ * @param {DefaultSize} defaultSize 默认尺寸
+ * @param {boolean} bounds 是否限制拖拽范围
+ * @param {CSSProperties} style 自定义样式
  */
 export type PlayerOpts = {
-    /**
-     * 默认位置
-     */
     defaultPosition?: DefaultPosition;
-    /**
-     * 默认大小 范围：200 - 960
-     */
     defaultSize?: DefaultSize;
-    /**
-     * 拖拽边界
-     */
     bounds?: string;
-    /**
-     * 样式
-     */
     style?: CSSProperties;
 }
 
@@ -95,22 +127,14 @@ export type Main = 'default' // | '...' 如有新main需求，在此处添加
 /**
  * @description RndPlayer配置
  * @typedef {RndPlayerProps}
+ * @param {Device} device 设备信息
+ * @param {PlayerOpts} playerOpts 播放器配置
+ * @param {Header} header 播放器头部组件配置
+ * @param {Main} main 播放器主体组件配置
  */
 export interface RndPlayerProps {
-    /**
-     * 设备信息配置
-     */
     deviceOpts?: Device;
-    /**
-     * 播放器配置
-     */
     playerOpts?: PlayerOpts;
-    /**
-     * 播放器头部组件配置
-     */
     header?: Header;
-    /**
-     * 播放器主体组件配置
-     */
     main?: Main;
 }
