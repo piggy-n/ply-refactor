@@ -1,0 +1,17 @@
+@import 'src/assets/styles/mixin.scss';
+
+.#{$prefix}player {
+  @include ps(relative);
+  @include fr(center);
+  @include wh(100%, 100%);
+  overflow: hidden;
+  user-select: none;
+
+  & > video {
+    @include ps(absolute, 0, auto, auto, 0);
+    @include wh(100%, 100%);
+    pointer-events: none;
+    object-fit: fill;
+    background-color: rgba(84, 84, 84, 0.8);
+  }
+}

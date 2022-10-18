@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, VideoHTMLAttributes, HTMLAttributes } from 'react';
 
 export type noArgVoid = () => void;
 
@@ -54,6 +54,40 @@ export type VideoMethods<T = noArgVoid, U = isArgVoid<T>> = {
     reload: T;
     setPlayProgress: U<number>;
     setVideoSrc: U<string>;
+}
+
+/**
+ * @description 播放器回调
+ * @param onPlay 播放
+ * @param onPause 暂停
+ * @param onTimeUpdate 时间更新
+ * @param onEnded 结束
+ * @param onProgressMouseDown 进度条鼠标按下
+ * @param onProgressMouseUp 进度条鼠标抬起
+ * @param onVideoStateChange 视频状态改变
+ * @param onError 错误
+ */
+export type VideoCallBack<T = VideoAttributes, U = isArgVoid<T>, K = noArgVoid> = {
+    onPlay: U<T>;
+    onPause: U<T>;
+    onTimeUpdate: U<T>;
+    onEnded: U<T>;
+    onProgressMouseDown: U<T>;
+    onProgressMouseUp: U<T>;
+    onVideoStateChange: U<T>;
+    onError: K;
+}
+
+export type PlayerRef = VideoAttributes & VideoMethods & { video: HTMLVideoElement };
+
+/**
+ * @description 播放器属性
+ * @param {string} url 视频源
+ */
+export interface PlayerProps<T = VideoHTMLAttributes<HTMLVideoElement>, K = HTMLAttributes<HTMLDivElement>> {
+    url?: string;
+    videoContainerOpts?: K;
+    videoElementOpts?: T;
 }
 
 /**
