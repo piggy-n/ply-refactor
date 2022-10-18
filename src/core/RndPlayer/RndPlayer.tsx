@@ -26,10 +26,17 @@ const RndPlayer: FC<RndPlayerProps> = (
         style,
     } = playerOpts;
 
-    const { position, setPosition } = useRndPlayerStore(s => s);
+    const {
+        position,
+        minSize,
+        setRndPlayerStoreData
+    } = useRndPlayerStore(s => s);
 
     useEffect(() => {
-        setPosition(defaultPosition);
+        setRndPlayerStoreData({
+            position: defaultPosition,
+            minSize: defaultSize,
+        });
     }, []);
 
     useCreate(
@@ -66,10 +73,10 @@ const RndPlayer: FC<RndPlayerProps> = (
             style={style}
             maxWidth={innerWidth}
             maxHeight={innerHeight}
-            minHeight={defaultSize.height}
-            minWidth={defaultSize.width}
+            minHeight={minSize.height}
+            minWidth={minSize.width}
             position={position}
-            onDragStop={(e, d) => setPosition(d)}
+            onDragStop={(e, d) => setRndPlayerStoreData({ position: d })}
             lockAspectRatio
         >
             <div
