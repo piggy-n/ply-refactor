@@ -3,6 +3,7 @@ $theme-normal-color: #B5D8EEFF;
 $default-header-color: #071E27BF;
 $default-border-color: #1E6079FF;
 $default-video-bg-color: #545454CC;
+$default-text-color: #EFF2F6FF;
 
 $prefix: ws-;
 $mw-prefix: mw-;
@@ -54,4 +55,21 @@ $mh-prefix: mh-;
   flex-wrap: $fw;
   justify-content: $jc;
   align-items: $ai;
+}
+
+@mixin style($size, $color, $bold: normal) {
+  font-size: $size;
+  color: $color;
+  font-weight: $bold;
+}
+
+.#{$prefix}rnd-player-container {
+  @keyframes loading {
+    from {
+      transform: rotateZ(0);
+    }
+    to {
+      transform: rotateZ(360deg);
+    }
+  }
 }

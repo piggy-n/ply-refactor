@@ -7,6 +7,7 @@ import { classes } from '@/utils/methods/classes';
 import { useSize } from 'ahooks';
 import usePlayerStore from '@/store/usePlayerStore';
 import useRndPlayerStore from '@/store/useRndPlayerStore';
+import Loading from '@/components/CommonComponents/Loading';
 
 const cn = 'Player';
 const cnPrefix = `ws-${cn.toLowerCase()}`;
@@ -54,6 +55,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
                 crossOrigin={'anonymous'}
                 {...videoElementOpts}
             />
+            <Loading/>
         </div>
     );
 };
