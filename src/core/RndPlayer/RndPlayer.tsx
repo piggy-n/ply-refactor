@@ -28,12 +28,13 @@ const RndPlayer: FC<RndPlayerProps> = (
 
     const { position, minSize } = useRndPlayerStore(s => s);
 
-    useEffect(() => {
-        useRndPlayerStore.setState({
+    useEffect(
+        () => useRndPlayerStore.setState({
             position: defaultPosition,
             minSize: defaultSize,
-        });
-    }, []);
+        }),
+        []
+    );
 
     useCreate(
         `${cnPrefix}-container`,

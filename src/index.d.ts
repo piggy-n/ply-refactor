@@ -86,6 +86,7 @@ export type PlayerRef = VideoAttributes & VideoMethods & { video: HTMLVideoEleme
  */
 export interface PlayerProps<T = VideoHTMLAttributes<HTMLVideoElement>, K = HTMLAttributes<HTMLDivElement>> {
     url?: string;
+    controllable?: boolean;
     videoContainerOpts?: K;
     videoElementOpts?: T;
 }

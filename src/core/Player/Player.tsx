@@ -15,6 +15,7 @@ const cnPrefix = `ws-${cn.toLowerCase()}`;
 const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     {
         url,
+        controllable = true,
         videoContainerOpts,
         videoElementOpts,
     },
@@ -25,6 +26,17 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     const videoResizingTimerRef = useRef<NodeJS.Timer>();
 
     const videoContainerSize = useSize(videoContainerRef);
+
+    useEffect(
+        () => usePlayerStore.setState({
+            videoContainerEle: videoContainerRef.current,
+            videoEle: videoElementRef.current,
+        }),
+        [
+            videoContainerRef.current,
+            videoElementRef.current
+        ]
+    );
 
     useEffect(
         () => {
@@ -55,7 +67,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
                 crossOrigin={'anonymous'}
                 {...videoElementOpts}
             />
-            <Loading/>
+            <Loading controllable={controllable}/>
         </div>
     );
 };
