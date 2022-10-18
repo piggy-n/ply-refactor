@@ -1,13 +1,14 @@
 import type { ForwardRefRenderFunction } from 'react';
 import type { PlayerRef, PlayerProps } from '@/index.d';
 import * as React from 'react';
-import { forwardRef, useEffect, useRef } from 'react';
+import { createElement, forwardRef, useEffect, useRef } from 'react';
 import '@/assets/styles/global.scss';
 import { classes } from '@/utils/methods/classes';
 import { useSize } from 'ahooks';
 import usePlayerStore from '@/store/usePlayerStore';
 import useRndPlayerStore from '@/store/useRndPlayerStore';
-import Loading from '@/components/CommonComponents/Loading';
+import { createRoot } from 'react-dom/client';
+// import Loading from '@/components/CommonComponents/Loading';
 
 const cn = 'Player';
 const cnPrefix = `ws-${cn.toLowerCase()}`;
@@ -21,20 +22,22 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     },
     ref
 ) => {
-    const videoContainerRef = useRef<HTMLDivElement>(null);
-    const videoElementRef = useRef<HTMLVideoElement>(null);
+    const videoContainerEleRef = useRef<HTMLDivElement | null>(null);
+    const videoEleRef = useRef<HTMLVideoElement | null>(null);
     const videoResizingTimerRef = useRef<NodeJS.Timer>();
 
-    const videoContainerSize = useSize(videoContainerRef);
+    const videoContainerEleSize = useSize(videoContainerEleRef);
+
+
 
     useEffect(
         () => usePlayerStore.setState({
-            videoContainerEle: videoContainerRef.current,
-            videoEle: videoElementRef.current,
+            videoContainerEle: videoContainerEleRef.current,
+            videoEle: videoEleRef.current,
         }),
         [
-            videoContainerRef.current,
-            videoElementRef.current
+            videoContainerEleRef.current,
+            videoEleRef.current
         ]
     );
 
@@ -49,25 +52,18 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
 
             return () => clearTimeout(videoResizingTimerRef.current);
         },
-        [videoContainerSize]
+        [videoContainerEleSize]
     );
 
     return (
         <div
-            ref={videoContainerRef}
+            ref={videoContainerEleRef}
             id={`${cnPrefix}-container`}
             className={classes(cn, '')}
             onMouseOver={() => useRndPlayerStore.setState({ disableDrag: true })}
             {...videoContainerOpts}
         >
-            <video
-                ref={videoElementRef}
-                muted
-                autoPlay
-                crossOrigin={'anonymous'}
-                {...videoElementOpts}
-            />
-            <Loading controllable={controllable}/>
+            {/*<Loading controllable={controllable}/>*/}
         </div>
     );
 };
