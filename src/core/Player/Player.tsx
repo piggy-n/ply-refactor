@@ -22,8 +22,8 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     },
     ref
 ) => {
-    const videoContainerEleRef = useRef<HTMLDivElement | null>(null);
     const videoResizingTimerRef = useRef<NodeJS.Timer>();
+    const videoContainerEleRef = useRef<HTMLDivElement | null>(null);
     const videoContainerEleSize = useSize(videoContainerEleRef);
 
     const { setState } = usePlayerStore;
