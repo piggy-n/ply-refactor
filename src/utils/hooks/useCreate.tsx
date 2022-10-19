@@ -35,13 +35,9 @@ const useCreate = <K extends keyof HTMLElementTagNameMap, T = string>(
                     componentWrapper.id = `${wrapperId}`;
                     Object.assign(componentWrapper.style, wrapperStyles);
 
-                    if (position === 'before') {
-                        containerEle.insertBefore(componentWrapper, containerEle.firstChild);
-                    }
-
-                    if (position === 'after') {
-                        containerEle.appendChild(componentWrapper);
-                    }
+                    position === 'after'
+                        ? containerEle.appendChild(componentWrapper)
+                        : containerEle.insertBefore(componentWrapper, containerEle.firstChild);
 
                     const root = createRoot(componentWrapper);
                     root.render(<Component/>);
