@@ -9,10 +9,10 @@ const cn = 'Loading';
 
 const Loading = () => {
     const { controllable } = usePlayerStore(s => s);
-    
+
     return (
         <div className={classes(cn, '')}>
-            <Icon name={'loading'} size={24}/>
+            <Icon name={'loading'} size={24} />
             {
                 controllable &&
                 <p>正在加载中...</p>

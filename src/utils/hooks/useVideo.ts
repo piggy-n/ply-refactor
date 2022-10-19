@@ -123,12 +123,12 @@ export const useVideo = () => {
                         totalTime: videoEle.duration,
                         playing: !videoEle.paused,
                         ended: videoEle.ended,
+                        networkState: videoEle.networkState,
+                        readyState: videoEle.readyState,
                         videoSize: {
                             videoWidth: videoEle.videoWidth,
                             videoHeight: videoEle.videoHeight
                         },
-                        networkState: videoEle.networkState,
-                        readyState: videoEle.readyState,
                     });
                 },
                 1

@@ -71,8 +71,8 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
             onMouseOver={() => useRndPlayerStore.setState({ disableDrag: true })}
             {...videoContainerEleOpts}
         >
-            <Video/>
-            <Loading/>
+            <Video />
+            <Loading />
         </div>
     );
 };
