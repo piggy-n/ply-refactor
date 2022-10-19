@@ -1,8 +1,26 @@
-// import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import * as React from 'react';
+import usePlayerStore from '@/store/usePlayerStore';
 
 const Video = () => {
-    // const videoEleRef = useRef<HTMLVideoElement | null>(null);
+    const videoEleRef = useRef<HTMLVideoElement | null>(null);
 
-}
+    const { setState } = usePlayerStore;
+    const { videoEleOpts } = usePlayerStore(s => s);
 
-export default Video
+    useEffect(
+        () => setState({ videoEle: videoEleRef.current }),
+        []
+    );
+    return (
+        <video
+            ref={videoEleRef}
+            muted
+            autoPlay
+            crossOrigin={'anonymous'}
+            {...videoEleOpts}
+        />
+    );
+};
+
+export default Video;

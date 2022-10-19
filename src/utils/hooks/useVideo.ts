@@ -9,7 +9,7 @@ export interface UseVideo extends VideoAttributes {
     changePlayStatusHandler: () => void;
 }
 
-export const useVideo = (ele: HTMLVideoElement, dep: DependencyList = []) => {
+export const useVideo = (ele: HTMLVideoElement | null, dep: DependencyList = []) => {
     const videoEle = useLatest(ele);
 
     const forceUpdate = useMandatoryUpdate();
@@ -36,9 +36,9 @@ export const useVideo = (ele: HTMLVideoElement, dep: DependencyList = []) => {
 
     const changePlayStatusHandler = () => {
         if (videoArgsRef.current.playing) {
-            videoEle.current.pause();
+            videoEle.current!.pause();
         } else {
-            videoEle.current.play();
+            videoEle.current!.play();
         }
     };
 

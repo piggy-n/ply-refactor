@@ -8,13 +8,15 @@ import { useSize } from 'ahooks';
 import usePlayerStore from '@/store/usePlayerStore';
 import useRndPlayerStore from '@/store/useRndPlayerStore';
 import Loading from '@/core/Player/Loading';
+import Video from '@/core/Player/Video';
+import { useVideo } from '@/utils/hooks/useVideo';
 
 const cn = 'Player';
 const cnPrefix = `ws-${cn.toLowerCase()}`;
 
 const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     {
-        videoContainerOpts,
+        videoContainerEleOpts,
         ...rest
     },
     ref
@@ -23,23 +25,25 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     const videoResizingTimerRef = useRef<NodeJS.Timer>();
     const videoContainerEleSize = useSize(videoContainerEleRef);
 
+    const { setState } = usePlayerStore;
+    const { videoEle } = usePlayerStore(s => s);
+
+    const { videoAttributes } = useVideo(videoEle, [videoEle]);
+
     useEffect(
-        () => usePlayerStore.setState({
+        () => setState({
             videoContainerEle: videoContainerEleRef.current,
             ...rest,
         }),
-        [
-            videoContainerEleRef.current,
-            rest
-        ]
+        []
     );
 
     useEffect(
         () => {
-            usePlayerStore.setState({ resizing: true });
+            setState({ resizing: true });
 
             videoResizingTimerRef.current = setTimeout(
-                () => usePlayerStore.setState({ resizing: false }),
+                () => setState({ resizing: false }),
                 300
             );
 
@@ -54,8 +58,9 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
             id={`${cnPrefix}-container`}
             className={classes(cn, '')}
             onMouseOver={() => useRndPlayerStore.setState({ disableDrag: true })}
-            {...videoContainerOpts}
+            {...videoContainerEleOpts}
         >
+            <Video/>
             <Loading/>
         </div>
     );

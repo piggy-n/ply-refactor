@@ -9,7 +9,7 @@ const cn = 'Loading';
 
 const Loading = () => {
     const { controllable } = usePlayerStore(s => s);
-
+    
     return (
         <div className={classes(cn, '')}>
             <Icon name={'loading'} size={24}/>

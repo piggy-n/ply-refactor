@@ -18,7 +18,7 @@ const Demo = () => {
             }}>
                 {/*<RndPlayer/>*/}
                 <Player
-                    videoContainerOpts={{
+                    videoContainerEleOpts={{
                         style: {
                             width: '480px',
                             height: '270px',

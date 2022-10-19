@@ -78,7 +78,7 @@ export type VideoCallBack<T = VideoAttributes, U = isArgVoid<T>, K = noArgVoid> 
     onError: K;
 }
 
-export type PlayerRef = VideoAttributes & VideoMethods & { video: HTMLVideoElement };
+export type PlayerRef = VideoAttributes & VideoMethods & { video: HTMLVideoElement | null };
 
 /**
  * @description 播放器属性
@@ -87,8 +87,8 @@ export type PlayerRef = VideoAttributes & VideoMethods & { video: HTMLVideoEleme
 export interface PlayerProps<T = VideoHTMLAttributes<HTMLVideoElement>, K = HTMLAttributes<HTMLDivElement>> {
     url?: string;
     controllable?: boolean;
-    videoContainerOpts?: K;
-    videoElementOpts?: T;
+    videoContainerEleOpts?: K;
+    videoEleOpts?: T;
 }
 
 /**
