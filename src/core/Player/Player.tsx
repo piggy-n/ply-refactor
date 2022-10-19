@@ -4,7 +4,7 @@ import * as React from 'react';
 import { forwardRef, useEffect, useRef } from 'react';
 import '@/assets/styles/global.scss';
 import { classes } from '@/utils/methods/classes';
-import { useSize } from 'ahooks';
+import { useDeepCompareEffect, useSize } from 'ahooks';
 import usePlayerStore from '@/store/usePlayerStore';
 import useRndPlayerStore from '@/store/useRndPlayerStore';
 import Loading from '@/core/Player/Loading';
@@ -30,12 +30,12 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
 
     const { videoAttributes } = useVideo(videoEle, [videoEle]);
 
-    useEffect(
+    useDeepCompareEffect(
         () => setState({
             videoContainerEle: videoContainerEleRef.current,
             ...rest,
         }),
-        []
+        [rest]
     );
 
     useEffect(

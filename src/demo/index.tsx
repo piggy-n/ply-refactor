@@ -8,7 +8,7 @@ const Demo = () => {
     const [url, setUrl] = React.useState('https://www.w3schools.com/html/mov_bbb.mp4');
     return (
         <>
-            <button onClick={() => setUrl(randomString())}>
+            <button onClick={() => setUrl('ws' + randomString())}>
                 设url
             </button>
             <div style={{

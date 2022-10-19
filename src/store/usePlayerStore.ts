@@ -1,21 +1,22 @@
 import create from 'zustand';
 import type { PlayerProps } from '@/index.d';
 
-interface StateProps extends PlayerProps {
-    resizing: boolean;
-    videoContainerEle: HTMLDivElement | null;
-    videoEle: HTMLVideoElement | null;
-    live: boolean;
+interface StateProps<U = boolean, K = null> extends PlayerProps {
+    live?: U;
+    resizing?: U;
+    videoContainerEle: HTMLDivElement | K;
+    videoEle: HTMLVideoElement | K;
+}
+
+interface Setters {
     setLive: (url?: string) => void;
 }
 
-const usePlayerStore = create<StateProps>(set => ({
-        resizing: false,
+const usePlayerStore = create<StateProps & Setters>(set => ({
+        controllable: true,
         videoContainerEle: null,
         videoEle: null,
-        controllable: true,
-        live: true,
-        setLive: (url?: string) => set({ live: url?.startsWith('ws') }),
+        setLive: url => set({ live: url?.startsWith('ws') }),
     })
 );
 
