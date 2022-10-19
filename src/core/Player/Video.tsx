@@ -6,20 +6,30 @@ const Video = () => {
     const videoEleRef = useRef<HTMLVideoElement | null>(null);
 
     const { setState } = usePlayerStore;
-    const { videoEleOpts, url, setLive,live } = usePlayerStore(s => s);
+    const {
+        videoEleOpts,
+        url,
+        setLive,
+    } = usePlayerStore(s => s);
 
-    useEffect(() => setState({ videoEle: videoEleRef.current }), []);
-
-    useEffect(() => {
-            setLive(url);
-            console.log('setLive', url);
-        },
-        [url]
+    useEffect(
+        () => setState({ videoEle: videoEleRef.current }),
+        []
     );
 
-    useEffect(()=>{
-        console.log(live);
-    },[live])
+    useEffect(
+        () => {
+            if (!videoEleRef.current) return;
+
+            const live = /^ws:\/\/|^wss:\/\//.test(url ?? '');
+
+            setLive(live);
+        },
+        [
+            videoEleRef.current,
+            url
+        ]
+    );
 
     return (
         <video

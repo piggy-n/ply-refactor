@@ -1,5 +1,6 @@
 import create from 'zustand';
 import type { PlayerProps } from '@/index.d';
+import { StreamPlayer } from '@/utils/methods/streamPlayer';
 
 interface StateProps<U = boolean, K = null> extends PlayerProps {
     live?: U;
@@ -8,15 +9,20 @@ interface StateProps<U = boolean, K = null> extends PlayerProps {
     videoEle: HTMLVideoElement | K;
 }
 
-interface Setters {
-    setLive: (url?: string) => void;
+interface Classes {
+    StreamPlayer: StreamPlayer;
 }
 
-const usePlayerStore = create<StateProps & Setters>(set => ({
+interface Setters<U = boolean> {
+    setLive: (arg: U) => void;
+}
+
+const usePlayerStore = create<StateProps & Setters & Classes>(set => ({
         controllable: true,
         videoContainerEle: null,
         videoEle: null,
-        setLive: url => set({ live: url?.startsWith('ws') }),
+        StreamPlayer: new StreamPlayer(),
+        setLive: live => set({ live }),
     })
 );
 

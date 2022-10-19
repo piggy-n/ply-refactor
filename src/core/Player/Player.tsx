@@ -1,7 +1,7 @@
 import type { ForwardRefRenderFunction } from 'react';
 import type { PlayerRef, PlayerProps } from '@/index.d';
 import * as React from 'react';
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import '@/assets/styles/global.scss';
 import { classes } from '@/utils/methods/classes';
 import { useDeepCompareEffect, useSize } from 'ahooks';
@@ -10,6 +10,7 @@ import useRndPlayerStore from '@/store/useRndPlayerStore';
 import Loading from '@/core/Player/Loading';
 import Video from '@/core/Player/Video';
 import { useVideo } from '@/utils/hooks/useVideo';
+import { useVideoMethods } from '@/utils/hooks/useVideoMethods';
 
 const cn = 'Player';
 const cnPrefix = `ws-${cn.toLowerCase()}`;
@@ -28,7 +29,17 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     const { setState } = usePlayerStore;
     const { videoEle } = usePlayerStore(s => s);
 
-    const { videoAttributes } = useVideo(videoEle, [videoEle]);
+    const { videoAttributes } = useVideo();
+    const videoMethods = useVideoMethods();
+
+    useImperativeHandle(
+        ref,
+        () => ({
+            video: videoEle,
+            ...videoAttributes,
+            ...videoMethods,
+        }),
+    );
 
     useDeepCompareEffect(
         () => setState({

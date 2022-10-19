@@ -1,16 +1,15 @@
-import type { DependencyList } from 'react';
 import { useEffect, useMemo, useRef } from 'react';
 import useMandatoryUpdate from '@/utils/hooks/useMandatoryUpdate';
 import type { VideoAttributes } from '@/index.d';
-import { useLatest } from 'ahooks';
+import usePlayerStore from '@/store/usePlayerStore';
 
 export interface UseVideo extends VideoAttributes {
     videoAttributes: VideoAttributes;
     changePlayStatusHandler: () => void;
 }
 
-export const useVideo = (ele: HTMLVideoElement | null, dep: DependencyList = []) => {
-    const videoEle = useLatest(ele);
+export const useVideo = () => {
+    const { videoEle } = usePlayerStore(s => s);
 
     const forceUpdate = useMandatoryUpdate();
 
@@ -36,78 +35,77 @@ export const useVideo = (ele: HTMLVideoElement | null, dep: DependencyList = [])
 
     const changePlayStatusHandler = () => {
         if (videoArgsRef.current.playing) {
-            videoEle.current!.pause();
+            videoEle!.pause();
         } else {
-            videoEle.current!.play();
+            videoEle!.play();
         }
     };
 
     useEffect(
         () => {
-            if (!videoEle.current) return;
-            const video = videoEle.current;
+            if (!videoEle) return;
 
-            video.addEventListener(
+            videoEle.addEventListener(
                 'canplay',
                 () => {
                     setVideoArgsHandler({
-                        totalTime: video.duration,
+                        totalTime: videoEle.duration,
                         videoSize: {
-                            videoWidth: video.videoWidth,
-                            videoHeight: video.videoHeight
+                            videoWidth: videoEle.videoWidth,
+                            videoHeight: videoEle.videoHeight
                         },
                     });
                 }
             );
 
-            video.addEventListener(
+            videoEle.addEventListener(
                 'progress',
                 () => {
-                    if (video.buffered.length >= 1) {
+                    if (videoEle.buffered.length >= 1) {
                         setVideoArgsHandler({
-                            bufferedTime: video.buffered.end(0),
+                            bufferedTime: videoEle.buffered.end(0),
                         });
                     }
                 }
             );
 
-            video.addEventListener(
+            videoEle.addEventListener(
                 'play',
                 () => {
                     setVideoArgsHandler({
-                        playing: !video.paused,
+                        playing: !videoEle.paused,
                     });
                 }
             );
 
-            video.addEventListener(
+            videoEle.addEventListener(
                 'pause',
                 () => {
                     setVideoArgsHandler({
-                        playing: !video.paused,
+                        playing: !videoEle.paused,
                     });
                 }
             );
 
-            video.addEventListener(
+            videoEle.addEventListener(
                 'timeupdate',
                 () => {
                     setVideoArgsHandler({
-                        playing: !video.paused,
+                        playing: !videoEle.paused,
                     });
                 }
             );
 
-            video.addEventListener(
+            videoEle.addEventListener(
                 'ended',
                 () => {
                     setVideoArgsHandler({
-                        ended: video.ended,
+                        ended: videoEle.ended,
                     });
                 }
             );
 
-            video.addEventListener(
+            videoEle.addEventListener(
                 'error',
                 () => {
                     setVideoArgsHandler({
@@ -121,16 +119,16 @@ export const useVideo = (ele: HTMLVideoElement | null, dep: DependencyList = [])
                     forceUpdate();
 
                     setVideoArgsHandler({
-                        currentTime: video.currentTime,
-                        totalTime: video.duration,
-                        playing: !video.paused,
-                        ended: video.ended,
+                        currentTime: videoEle.currentTime,
+                        totalTime: videoEle.duration,
+                        playing: !videoEle.paused,
+                        ended: videoEle.ended,
                         videoSize: {
-                            videoWidth: video.videoWidth,
-                            videoHeight: video.videoHeight
+                            videoWidth: videoEle.videoWidth,
+                            videoHeight: videoEle.videoHeight
                         },
-                        networkState: video.networkState,
-                        readyState: video.readyState,
+                        networkState: videoEle.networkState,
+                        readyState: videoEle.readyState,
                     });
                 },
                 1
@@ -140,7 +138,7 @@ export const useVideo = (ele: HTMLVideoElement | null, dep: DependencyList = [])
                 videoInterval.current && clearInterval(videoInterval.current);
             };
         },
-        dep
+        [videoEle]
     );
 
     return useMemo<UseVideo>(
