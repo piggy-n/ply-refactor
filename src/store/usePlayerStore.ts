@@ -5,6 +5,7 @@ import { StreamPlayer } from '@/utils/methods/streamPlayer';
 interface StateProps<U = boolean, K = null> extends PlayerProps {
     live?: U;
     resizing?: U;
+    buffering?: U;
     videoContainerEle: HTMLDivElement | K;
     videoEle: HTMLVideoElement | K;
 }
