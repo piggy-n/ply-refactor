@@ -11,14 +11,18 @@ const cn = 'Loading';
 const Loading = () => {
     const [loading, setLoading] = useState(false);
     const loadingTimerRef = useRef<NodeJS.Timer | null>(null);
-    const { controllable, buffering } = usePlayerStore(s => s);
 
     const { playing, networkState, readyState } = useVideo();
+    const { url, controllable, buffering } = usePlayerStore(s => s);
 
     useEffect(
         () => {
             if (loadingTimerRef.current) {
                 clearTimeout(loadingTimerRef.current);
+            }
+
+            if (url) {
+                setLoading(true);
             }
 
             if (

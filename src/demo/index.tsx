@@ -11,6 +11,12 @@ const Demo = () => {
             <button onClick={() => setUrl('https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/prod/file/2021/08/31/540p.mp4')}>
                 设url
             </button>
+            <button onClick={() => setUrl('')}>
+                设url 空
+            </button>
+            <button onClick={() => setUrl('https://www.w3schools.com/html/mov_bbb.mp4')}>
+                设url
+            </button>
             <div style={{
                 width: '100vw',
                 height: '100vh',

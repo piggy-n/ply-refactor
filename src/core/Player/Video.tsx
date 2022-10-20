@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import * as React from 'react';
 import usePlayerStore from '@/store/usePlayerStore';
 import useMandatoryUpdate from '@/utils/hooks/useMandatoryUpdate';
+import defaultPoster from '@/assets/images/snap.png';
 
 const Video = () => {
     const videoEleRef = useRef<HTMLVideoElement | null>(null);
@@ -20,7 +21,7 @@ const Video = () => {
 
     useEffect(
         () => setState({ videoEle: videoEleRef.current }),
-        []
+        [videoEleRef.current]
     );
 
     useEffect(
@@ -28,9 +29,9 @@ const Video = () => {
             const videoEle = videoEleRef.current;
             const live = /^ws:\/\/|^wss:\/\//.test(url);
 
-            if (videoEle) {
-                live ? console.log('live') : videoEle.src = url;
-            }
+            if (!videoEle || !url) return;
+
+            live ? console.log('live') : videoEle.src = url;
 
             setLive(live);
             forceUpdate();
@@ -47,13 +48,16 @@ const Video = () => {
     );
 
     return (
-        <video
-            ref={videoEleRef}
-            muted
-            autoPlay
-            crossOrigin={'anonymous'}
-            {...videoEleOpts}
-        />
+        url
+            ? <video
+                ref={videoEleRef}
+                muted
+                autoPlay
+                poster={defaultPoster}
+                crossOrigin={'anonymous'}
+                {...videoEleOpts}
+            />
+            : null
     );
 };
 
