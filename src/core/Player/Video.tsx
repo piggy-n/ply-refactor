@@ -11,7 +11,7 @@ const Video = () => {
     const { setState } = usePlayerStore;
     const {
         videoEleOpts,
-        url = '',
+        url,
         setLive,
     } = usePlayerStore(s => s);
 
@@ -27,10 +27,10 @@ const Video = () => {
     useEffect(
         () => {
             const videoEle = videoEleRef.current;
-            const live = /^ws:\/\/|^wss:\/\//.test(url);
 
             if (!videoEle || !url) return;
 
+            const live = /^ws:\/\/|^wss:\/\//.test(url);
             live ? console.log('live') : videoEle.src = url;
 
             setLive(live);

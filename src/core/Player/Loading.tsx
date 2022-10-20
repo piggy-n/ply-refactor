@@ -39,6 +39,7 @@ const Loading = () => {
             }
         },
         [
+            url,
             playing,
             buffering,
             networkState,
