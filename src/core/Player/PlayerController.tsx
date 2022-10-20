@@ -8,6 +8,7 @@ const cn = 'Player-Controller';
 
 const PlayerController = () => {
     const { playing, ended } = useVideo();
+
     const { setState } = usePlayerStore;
     const { url, controllable, resizing, loading } = usePlayerStore(s => s);
 
@@ -22,7 +23,7 @@ const PlayerController = () => {
     };
 
     return (
-        controllable
+        controllable && url
             ? <div
                 className={classes(cn, '', classHandler())}
                 onMouseEnter={() => setState({ controlled: !resizing && !ended })}
