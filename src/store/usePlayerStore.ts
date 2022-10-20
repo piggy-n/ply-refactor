@@ -8,6 +8,7 @@ interface StateProps<U = boolean, K = null> extends PlayerProps {
     buffering?: U;
     loading?: U;
     error?: U;
+    controlled?: U;
     videoContainerEle: HTMLDivElement | K;
     videoEle: HTMLVideoElement | K;
 }
