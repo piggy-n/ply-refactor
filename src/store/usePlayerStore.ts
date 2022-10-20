@@ -1,5 +1,5 @@
 import create from 'zustand';
-import type { PlayerProps } from '@/index.d';
+import type { PlayerProps, isArgVoid } from '@/index.d';
 import { StreamPlayer } from '@/utils/methods/streamPlayer';
 
 interface StateProps<U = boolean, K = null> extends PlayerProps {
@@ -15,7 +15,7 @@ interface Classes {
 }
 
 interface Setters<U = boolean> {
-    setLive: (arg: U) => void;
+    setLive: isArgVoid<U>;
 }
 
 const usePlayerStore = create<StateProps & Setters & Classes>(set => ({
