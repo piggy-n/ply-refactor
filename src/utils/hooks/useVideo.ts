@@ -15,7 +15,7 @@ export const useVideo = () => {
 
     const videoInterval = useRef<NodeJS.Timeout | null>(null);
     const videoArgsRef = useRef<VideoAttributes>({
-        playing: true,
+        playing: false,
         currentTime: 0,
         totalTime: 0,
         bufferedTime: 0,

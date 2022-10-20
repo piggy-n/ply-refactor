@@ -9,11 +9,7 @@ const Video = () => {
     const forceUpdate = useMandatoryUpdate();
 
     const { setState } = usePlayerStore;
-    const {
-        videoEleOpts,
-        url,
-        setLive,
-    } = usePlayerStore(s => s);
+    const { videoEleOpts, url = '' } = usePlayerStore(s => s);
 
     const waitingListener = () => setState({ buffering: true });
 
@@ -28,12 +24,15 @@ const Video = () => {
         () => {
             const videoEle = videoEleRef.current;
 
-            if (!videoEle || !url) return;
+            if (!videoEle) {
+                setState({ loading: false });
+                return;
+            }
 
             const live = /^ws:\/\/|^wss:\/\//.test(url);
             live ? console.log('live') : videoEle.src = url;
 
-            setLive(live);
+            setState({ live, loading: true });
             forceUpdate();
 
             videoEle?.addEventListener('waiting', waitingListener);

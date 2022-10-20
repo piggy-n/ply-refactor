@@ -14,7 +14,7 @@ const Demo = () => {
             <button onClick={() => setUrl('')}>
                 设url 空
             </button>
-            <button onClick={() => setUrl('https://www.w3schools.com/html/mov_bbb.mp4')}>
+            <button onClick={() => setUrl('https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/test/file/2021/07/01/haiwang.mp4')}>
                 设url
             </button>
             <div style={{
