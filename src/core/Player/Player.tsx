@@ -11,6 +11,7 @@ import Loading from '@/core/Player/Loading';
 import Video from '@/core/Player/Video';
 import { useVideo } from '@/utils/hooks/useVideo';
 import { useVideoMethods } from '@/utils/hooks/useVideoMethods';
+import PlayerController from '@/core/Player/PlayerController';
 
 const cn = 'Player';
 const cnPrefix = `ws-${cn.toLowerCase()}`;
@@ -73,6 +74,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         >
             <Video />
             <Loading />
+            <PlayerController />
         </div>
     );
 };

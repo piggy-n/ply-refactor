@@ -9,12 +9,12 @@ const cn = 'Player-Controller';
 const PlayerController = () => {
     const { playing, ended } = useVideo();
     const { setState } = usePlayerStore;
-    const { resizing } = usePlayerStore(s => s);
+    const { url, controllable, resizing, loading } = usePlayerStore(s => s);
 
     const classHandler = (): string[] => {
         const classNameArr = [];
 
-        if (!playing || ended) {
+        if ((!playing || ended) && url && !loading) {
             classNameArr.push('dark-mask');
         }
 
@@ -22,13 +22,15 @@ const PlayerController = () => {
     };
 
     return (
-        <div
-            className={classes(cn, '', classHandler())}
-            onMouseEnter={() => setState({ controlled: !resizing && !ended })}
-            onMouseLeave={() => setState({ controlled: false })}
-        >
+        controllable
+            ? <div
+                className={classes(cn, '', classHandler())}
+                onMouseEnter={() => setState({ controlled: !resizing && !ended })}
+                onMouseLeave={() => setState({ controlled: false })}
+            >
 
-        </div>
+            </div>
+            : null
     );
 };
 

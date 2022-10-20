@@ -1,0 +1,12 @@
+@import "src/assets/styles/mixin.scss";
+
+.#{$prefix}player-controller {
+  @include wh(100%, 100%);
+  @include ps(absolute, auto, auto, 0, 50%);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.dark-mask {
+  background: $mask-background;
+}
