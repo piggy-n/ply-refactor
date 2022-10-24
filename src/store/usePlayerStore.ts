@@ -1,28 +1,31 @@
-import create from 'zustand';
-import type { PlayerProps } from '@/index.d';
-import { StreamPlayer } from '@/utils/methods/streamPlayer';
+import { useReducer } from 'react';
 
-interface StateProps<U = boolean, K = null> extends PlayerProps {
-    live?: U;
-    resizing?: U;
+/**
+ * @description VideoModelState
+ * @param {boolean} buffering - 是否缓冲中
+ * @param {boolean} controlled - 是否受控
+ * @param {boolean} error - 是否出错
+ * @param {boolean} loading - 是否加载中
+ * @param {boolean} resizing - 是否正在调整大小
+ */
+export interface PlayerStoreState<U = boolean> {
     buffering?: U;
-    loading?: U;
-    error?: U;
     controlled?: U;
-    videoContainerEle: HTMLDivElement | K;
-    videoEle: HTMLVideoElement | K;
+    error?: U;
+    live?: U;
+    loading?: U;
+    resizing?: U;
 }
 
-interface Classes {
-    StreamPlayer: StreamPlayer;
-}
+export const initialState: PlayerStoreState = {};
 
-const usePlayerStore = create<StateProps & Classes>(() => ({
-        controllable: true,
-        videoContainerEle: null,
-        videoEle: null,
-        StreamPlayer: new StreamPlayer(),
-    })
-);
+export const usePlayerStore = () => {
+    const reducer = (
+        state: PlayerStoreState,
+        payload: Partial<PlayerStoreState>
+    ) => ({ ...state, ...payload });
 
-export default usePlayerStore;
+    const [playerStore, playerStoreDispatch] = useReducer(reducer, initialState);
+
+    return { playerStore, playerStoreDispatch };
+};
