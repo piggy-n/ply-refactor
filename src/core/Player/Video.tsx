@@ -1,61 +1,17 @@
-import { forwardRef, useContext, useEffect } from 'react';
+import { forwardRef, useContext } from 'react';
 import * as React from 'react';
-import useMandatoryUpdate from '@/utils/hooks/useMandatoryUpdate';
 import defaultPoster from '@/assets/images/snap.png';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import type { ForwardRefRenderFunction } from 'react';
+import { usePlayer } from '@/utils/hooks/usePlayer';
 
 const VanillaVideo: ForwardRefRenderFunction<HTMLVideoElement | null> = (
     _,
     videoEleRef
 ) => {
-    const {
-        url = '',
-        videoEleOpts,
-        videoEle,
-        playerStoreDispatch,
-    } = useContext(PlayerContext);
+    const { url = '', videoEleOpts } = useContext(PlayerContext);
 
-    const forceUpdate = useMandatoryUpdate();
-
-    const waitingListener = () => playerStoreDispatch({
-        buffering: true
-    });
-
-    const playingListener = () => playerStoreDispatch({
-        buffering: false
-    });
-
-    useEffect(
-        () => {
-            if (!videoEle) {
-                playerStoreDispatch({ loading: false });
-                return;
-            }
-
-            const live = /^ws:\/\/|^wss:\/\//.test(url);
-            live ? console.log('live') : videoEle.src = url;
-
-            playerStoreDispatch({
-                live,
-                loading: true
-            });
-
-            forceUpdate();
-
-            videoEle.addEventListener('waiting', waitingListener);
-            videoEle.addEventListener('playing', playingListener);
-
-            return () => {
-                videoEle.removeEventListener('waiting', waitingListener);
-                videoEle.removeEventListener('playing', playingListener);
-            };
-        },
-        [
-            url,
-            videoEle
-        ]
-    );
+    usePlayer();
 
     return (
         url
