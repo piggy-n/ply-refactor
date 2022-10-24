@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 
 /**
- * @description VideoModelState
+ * @description PlayerStoreState
  * @param {boolean} buffering - 是否缓冲中
  * @param {boolean} controlled - 是否受控
  * @param {boolean} error - 是否出错

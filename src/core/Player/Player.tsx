@@ -1,10 +1,9 @@
 import type { ForwardRefRenderFunction } from 'react';
 import type { PlayerRef, PlayerProps } from '@/index.d';
 import * as React from 'react';
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import '@/assets/styles/global.scss';
 import { classes } from '@/utils/methods/classes';
-import { useSize } from 'ahooks';
 import useRndPlayerStore from '@/store/useRndPlayerStore';
 import Loading from '@/core/Player/Loading';
 import { useVideo } from '@/utils/hooks/useVideo';
@@ -13,6 +12,7 @@ import { usePlayerStore } from '@/store/usePlayerStore';
 import { PlayerContext, playerContextDefaultValue } from '@/utils/hooks/usePlayerContext';
 import { Video } from '@/core/Player/Video';
 import PlayerController from '@/core/Player/PlayerController';
+import { useResizing } from '@/utils/hooks/useResizing';
 
 const cn = 'Player';
 const cnPrefix = `ws-${cn.toLowerCase()}`;
@@ -26,12 +26,11 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
 ) => {
     const videoEleRef = useRef<HTMLVideoElement | null>(null);
     const videoContainerEleRef = useRef<HTMLDivElement | null>(null);
-    const videoResizingTimerRef = useRef<NodeJS.Timer>();
-    const videoContainerEleSize = useSize(videoContainerEleRef);
 
     const videoMethods = useVideoMethods();
     const { videoAttributes } = useVideo(videoEleRef.current);
     const { playerStore, playerStoreDispatch } = usePlayerStore();
+    const { setState } = useRndPlayerStore;
 
     const playerContextValue = useMemo(
         () => {
@@ -57,6 +56,8 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         ]
     );
 
+    useResizing(videoContainerEleRef.current);
+
     useImperativeHandle(
         ref,
         () => ({
@@ -66,27 +67,13 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         }),
     );
 
-    useEffect(
-        () => {
-            playerStoreDispatch({ resizing: true });
-
-            videoResizingTimerRef.current = setTimeout(
-                () => playerStoreDispatch({ resizing: false }),
-                300
-            );
-
-            return () => clearTimeout(videoResizingTimerRef.current);
-        },
-        [videoContainerEleSize]
-    );
-
     return (
         <PlayerContext.Provider value={playerContextValue}>
             <div
                 ref={videoContainerEleRef}
                 id={`${cnPrefix}-container`}
                 className={classes(cn, '')}
-                onMouseOver={() => useRndPlayerStore.setState({ disableDrag: true })}
+                onMouseOver={() => setState({ disableDrag: true })}
                 {...videoContainerEleOpts}
             >
                 <Video ref={videoEleRef} />

@@ -43,12 +43,12 @@ const VanillaVideo: ForwardRefRenderFunction<HTMLVideoElement | null> = (
 
             forceUpdate();
 
-            videoEle?.addEventListener('waiting', waitingListener);
-            videoEle?.addEventListener('playing', playingListener);
+            videoEle.addEventListener('waiting', waitingListener);
+            videoEle.addEventListener('playing', playingListener);
 
             return () => {
-                videoEle?.removeEventListener('waiting', waitingListener);
-                videoEle?.removeEventListener('playing', playingListener);
+                videoEle.removeEventListener('waiting', waitingListener);
+                videoEle.removeEventListener('playing', playingListener);
             };
         },
         [
