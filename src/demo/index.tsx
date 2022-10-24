@@ -37,7 +37,6 @@ const Demo = () => {
                             height: '270px',
                         }
                     }}
-                    controllable={control}
                     url={url}
                 />
                 {/*<Player*/}

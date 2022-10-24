@@ -12,6 +12,7 @@ import { useVideoMethods } from '@/utils/hooks/useVideoMethods';
 import { usePlayerStore } from '@/store/usePlayerStore';
 import { PlayerContext, playerContextDefaultValue } from '@/utils/hooks/usePlayerContext';
 import { Video } from '@/core/Player/Video';
+import PlayerController from '@/core/Player/PlayerController';
 
 const cn = 'Player';
 const cnPrefix = `ws-${cn.toLowerCase()}`;
@@ -28,9 +29,9 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     const videoResizingTimerRef = useRef<NodeJS.Timer>();
     const videoContainerEleSize = useSize(videoContainerEleRef);
 
+    const videoMethods = useVideoMethods();
     const { videoAttributes } = useVideo(videoEleRef.current);
     const { playerStore, playerStoreDispatch } = usePlayerStore();
-    const videoMethods = useVideoMethods();
 
     const playerContextValue = useMemo(
         () => {
@@ -90,7 +91,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
             >
                 <Video ref={videoEleRef} />
                 <Loading />
-                {/*<PlayerController />*/}
+                <PlayerController />
             </div>
         </PlayerContext.Provider>
     );
