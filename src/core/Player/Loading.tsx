@@ -2,13 +2,19 @@ import * as React from 'react';
 import { classes } from '@/utils/methods/classes';
 import '@/assets/styles/global.scss';
 import Icon from '@/components/CommonComponents/Icon';
-import usePlayerStore from '@/store/usePlayerStore';
 import { useLoading } from '@/utils/hooks/useLoading';
+import { PlayerContext } from '@/utils/hooks/usePlayerContext';
+import { useContext } from 'react';
 
 const cn = 'Loading';
 
 const Loading = () => {
-    const { controllable, loading } = usePlayerStore(s => s);
+    const {
+        controllable,
+        playerStore: {
+            loading
+        }
+    } = useContext(PlayerContext);
 
     useLoading();
 

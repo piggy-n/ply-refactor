@@ -1,38 +1,46 @@
-import { useEffect, useRef } from 'react';
+import { forwardRef, useContext, useEffect } from 'react';
 import * as React from 'react';
-import usePlayerStore from '@/store/usePlayerStore';
 import useMandatoryUpdate from '@/utils/hooks/useMandatoryUpdate';
 import defaultPoster from '@/assets/images/snap.png';
+import { PlayerContext } from '@/utils/hooks/usePlayerContext';
+import type { ForwardRefRenderFunction } from 'react';
 
-const Video = () => {
-    const videoEleRef = useRef<HTMLVideoElement | null>(null);
+const VanillaVideo: ForwardRefRenderFunction<HTMLVideoElement | null> = (
+    _,
+    videoEleRef
+) => {
+    const {
+        url = '',
+        videoEleOpts,
+        videoEle,
+        playerStoreDispatch,
+    } = useContext(PlayerContext);
+
     const forceUpdate = useMandatoryUpdate();
 
-    const { setState } = usePlayerStore;
-    const { videoEleOpts, url = '' } = usePlayerStore(s => s);
+    const waitingListener = () => playerStoreDispatch({
+        buffering: true
+    });
 
-    const waitingListener = () => setState({ buffering: true });
-
-    const playingListener = () => setState({ buffering: false });
-
-    useEffect(
-        () => setState({ videoEle: videoEleRef.current }),
-        [videoEleRef.current]
-    );
+    const playingListener = () => playerStoreDispatch({
+        buffering: false
+    });
 
     useEffect(
         () => {
-            const videoEle = videoEleRef.current;
-
             if (!videoEle) {
-                setState({ loading: false });
+                playerStoreDispatch({ loading: false });
                 return;
             }
 
             const live = /^ws:\/\/|^wss:\/\//.test(url);
             live ? console.log('live') : videoEle.src = url;
 
-            setState({ live, loading: true });
+            playerStoreDispatch({
+                live,
+                loading: true
+            });
+
             forceUpdate();
 
             videoEle?.addEventListener('waiting', waitingListener);
@@ -43,7 +51,10 @@ const Video = () => {
                 videoEle?.removeEventListener('playing', playingListener);
             };
         },
-        [url]
+        [
+            url,
+            videoEle
+        ]
     );
 
     return (
@@ -60,4 +71,4 @@ const Video = () => {
     );
 };
 
-export default Video;
+export const Video = forwardRef<HTMLVideoElement | null>(VanillaVideo);

@@ -1,9 +1,14 @@
-import usePlayerStore from '@/store/usePlayerStore';
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import type { VideoMethods } from '@/index.d';
+import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 
 export const useVideoMethods = () => {
-    const { url, live } = usePlayerStore(s => s);
+    const {
+        url,
+        playerStore: {
+            live
+        }
+    } = useContext(PlayerContext);
 
     const play = () => {
         console.log('play');
@@ -33,6 +38,9 @@ export const useVideoMethods = () => {
             setPlayProgress,
             setVideoSrc,
         }),
-        [url, live]
+        [
+            url,
+            live
+        ]
     );
 };

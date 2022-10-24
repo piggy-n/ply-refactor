@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useRef } from 'react';
 import useMandatoryUpdate from '@/utils/hooks/useMandatoryUpdate';
 import type { VideoAttributes } from '@/index.d';
-import usePlayerStore from '@/store/usePlayerStore';
+import { useLatest } from 'ahooks';
 
 export interface UseVideo extends VideoAttributes {
     videoAttributes: VideoAttributes;
     changePlayStatusHandler: () => void;
 }
 
-export const useVideo = () => {
-    const { videoEle } = usePlayerStore(s => s);
+export const useVideo = (ele: HTMLVideoElement | null) => {
+    const videoEleRef = useLatest(ele);
+    const videoEle = videoEleRef.current;
 
     const forceUpdate = useMandatoryUpdate();
 

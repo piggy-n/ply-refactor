@@ -1,13 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useVideo } from '@/utils/hooks/useVideo';
-import usePlayerStore from '@/store/usePlayerStore';
+import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 
 export const useLoading = () => {
-    const loadingTimerRef = useRef<NodeJS.Timer | null>(null);
-    const { playing, networkState, readyState } = useVideo();
+    const {
+        playerStore: {
+            buffering,
+        },
+        videoEle,
+        playerStoreDispatch,
+    } = useContext(PlayerContext);
 
-    const { setState } = usePlayerStore;
-    const { buffering } = usePlayerStore(s => s);
+    const loadingTimerRef = useRef<NodeJS.Timer | null>(null);
+
+    const { playing, networkState, readyState } = useVideo(videoEle);
 
     useEffect(
         () => {
@@ -21,16 +27,16 @@ export const useLoading = () => {
 
             if (inBuffer) {
                 loadingTimerRef.current = setTimeout(
-                    () => setState({ loading: true }),
+                    () => playerStoreDispatch({ loading: true }),
                     750
                 );
             }
 
             if (inPlay) {
-                setState({ loading: false });
+                playerStoreDispatch({ loading: false });
             }
 
-            setState({ error: inError });
+            playerStoreDispatch({ error: inError });
         },
         [
             playing,
