@@ -10,7 +10,7 @@ import Loading from '@/core/Player/Loading';
 import { useVideo } from '@/utils/hooks/useVideo';
 import { useVideoMethods } from '@/utils/hooks/useVideoMethods';
 import { usePlayerStore } from '@/store/usePlayerStore';
-import { PlayerContext } from '@/utils/hooks/usePlayerContext';
+import { PlayerContext, playerContextDefaultValue } from '@/utils/hooks/usePlayerContext';
 import { Video } from '@/core/Player/Video';
 
 const cn = 'Player';
@@ -37,8 +37,10 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
             return Object.assign(
                 {},
                 {
+                    ...playerContextDefaultValue,
                     playerStore,
                     playerStoreDispatch,
+                    videoAttributes,
                     videoEle: videoEleRef.current,
                     videoContainerEle: videoContainerEleRef.current,
                     ...rest
