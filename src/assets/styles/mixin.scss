@@ -65,6 +65,19 @@ $mh-prefix: mh-;
   font-weight: $bold;
 }
 
+@mixin normalIcon() {
+  line-height: 1;
+
+  svg,
+  use {
+    cursor: pointer;
+  }
+
+  svg:hover {
+    animation: scaleAnimate .5s ease;
+  }
+}
+
 .#{$prefix}rnd-player-container {
   @keyframes loading {
     from {

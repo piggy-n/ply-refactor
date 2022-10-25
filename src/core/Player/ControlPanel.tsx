@@ -3,6 +3,7 @@ import { classes } from '@/utils/methods/classes';
 import { useContext } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import '@/assets/styles/global.scss';
+import PlayControl from '@/core/Player/PlayControl';
 
 const cn = 'Control-Panel';
 
@@ -12,12 +13,14 @@ const ControlPanel = () => {
             controlled,
         },
     } = useContext(PlayerContext);
+
     return (
         <div
             className={classes(cn, '')}
             style={{ opacity: controlled ? 1 : 0 }}
         >
             <div className={classes(cn, 'left-warp')}>
+                <PlayControl />
             </div>
             <div className={classes(cn, 'right-warp')}>
             </div>
