@@ -1,0 +1,33 @@
+@import 'src/assets/styles/mixin.scss';
+
+.#{$prefix}control-panel {
+  @include ps(relative);
+  @include wh(100%, 40px);
+  @include fr(flex-start);
+  transition: all 0.5s;
+  color: rgba(238, 238, 238, 1);
+
+  &:hover {
+    cursor: default;
+  }
+
+  &:after {
+    @include wh(100%, 100%);
+    @include ps(absolute, auto, auto, 0, 50%);
+    content: '';
+    z-index: -1;
+    transform: translateX(-50%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+  }
+
+  &-left-warp {
+    @include fr(flex-start);
+    margin-left: 12px;
+  }
+
+  &-right-warp {
+    @include fr(flex-end);
+    margin-right: 12px;
+    flex: 1;
+  }
+}

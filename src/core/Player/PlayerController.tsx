@@ -9,6 +9,7 @@ import { fullScreenHandler } from '@/utils/methods/fullScreen';
 import PlayButton from '@/core/Player/PlayButton';
 import EndButton from '@/core/Player/EndButton';
 import ProgressBar from '@/core/Player/ProgressBar';
+import ControlPanel from '@/core/Player/ControlPanel';
 
 const cn = 'Player-Controller';
 
@@ -157,6 +158,7 @@ const PlayerController = () => {
                     onMouseLeave={() => mouseState.mouseIsOnController = false}
                 >
                     <ProgressBar />
+                    <ControlPanel />
                 </div>
             </div>
             : null
