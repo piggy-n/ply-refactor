@@ -18,6 +18,10 @@
     transform: translate(-50%, -50%);
     cursor: pointer;
     z-index: 2;
+
+    svg {
+      animation: scaleAnimate 0.5s ease;
+    }
   }
 
   &-cp {
