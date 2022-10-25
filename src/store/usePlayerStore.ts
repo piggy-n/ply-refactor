@@ -5,6 +5,7 @@ import { useReducer } from 'react';
  * @param {boolean} buffering - 是否缓冲中
  * @param {boolean} controlled - 是否受控
  * @param {boolean} error - 是否出错
+ * @param {boolean} isFullScreen - 是否全屏
  * @param {boolean} loading - 是否加载中
  * @param {boolean} resizing - 是否正在调整大小
  */
@@ -12,6 +13,7 @@ export interface PlayerStoreState<U = boolean> {
     buffering?: U;
     controlled?: U;
     error?: U;
+    isFullscreen?: U;
     live?: U;
     loading?: U;
     resizing?: U;
