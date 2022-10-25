@@ -39,19 +39,36 @@ const ProgressBar = () => {
         progressStoreDispatch
     } = useProgressStore();
 
-    const { currentTime, totalTime, bufferedTime, networkState, readyState } = useVideo(videoEle);
+    const {
+        currentTime,
+        totalTime,
+        bufferedTime,
+        networkState,
+        readyState
+    } = useVideo(videoEle);
 
     const bufferedPercentage = useMemo(
         () => networkState === 3 && readyState === 0
             ? 0
             : ((bufferedTime / totalTime) * 100).toString(),
-        [bufferedTime, totalTime, networkState, readyState]);
+        [
+            bufferedTime,
+            totalTime,
+            networkState,
+            readyState
+        ]
+    );
 
     const processPercentage = useMemo(
         () => networkState === 3 && readyState === 0
             ? 0
             : ((currentTime / totalTime) * 100).toString(),
-        [totalTime, currentTime, networkState, readyState]
+        [
+            totalTime,
+            currentTime,
+            networkState,
+            readyState
+        ]
     );
 
     const { clientX } = useWindowClient();
@@ -167,9 +184,7 @@ const ProgressBar = () => {
         () => {
             addEventListener('mouseup', mouseUpHandler);
 
-            return () => {
-                removeEventListener('mouseup', mouseUpHandler);
-            };
+            return () => removeEventListener('mouseup', mouseUpHandler);
         },
         [
             currentTime,
@@ -179,7 +194,7 @@ const ProgressBar = () => {
     );
 
     return (
-        live
+        !live
             ? <div
                 className={classes(cn, '')}
                 style={{ opacity: controlled ? 1 : 0 }}

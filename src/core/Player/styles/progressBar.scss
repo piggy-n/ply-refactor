@@ -35,11 +35,11 @@
       z-index: 2;
 
       .control-point {
-        transition: all 0.3s;
         @include wh(12px, 12px);
         @include ps(absolute, -50%, -5px, auto, auto);
         border-radius: 50%;
         margin-top: 1px;
+        transition: all 0.3s;
       }
     }
 
@@ -49,7 +49,7 @@
       i {
         @include wh(0, 0);
         @include ps(absolute, -5px, auto, auto, -4px);
-        border-top: 4px solid rgba(22, 174, 224, 1);
+        border-top: 4px solid $theme-active-color;
         border-right: 4px solid transparent;
         border-bottom: 4px solid transparent;
         border-left: 4px solid transparent;
@@ -57,7 +57,7 @@
 
       span {
         @include ps(absolute, -30px, auto, auto, 50%);
-        @include style(12px, rgba(239, 242, 246, 1));
+        @include style(12px, $default-text-color);
         transform: translateX(-50%);
         background-color: rgba(0, 0, 0, 0.6);
         padding: 1px 4px;
