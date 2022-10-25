@@ -6,10 +6,10 @@ import { useContext, useRef } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import { useRafInterval, useReactive } from 'ahooks';
 import { fullScreenHandler } from '@/utils/methods/fullScreen';
-import PlayButton from '@/core/Player/PlayButton';
-import EndButton from '@/core/Player/EndButton';
-import ProgressBar from '@/core/Player/ProgressBar';
-import ControlPanel from '@/core/Player/ControlPanel';
+import PlayButton from '@/kernel/Player/PlayButton';
+import EndButton from '@/kernel/Player/EndButton';
+import ProgressBar from '@/kernel/Player/ProgressBar';
+import ControlPanel from '@/kernel/Player/ControlPanel';
 
 const cn = 'Player-Controller';
 

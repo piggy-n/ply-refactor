@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import type { RndPlayerProps } from '@/index.d';
 import { classes } from '@/utils/methods/classes';
 import '@/assets/styles/global.scss';
-import { DEFAULT_PLAYER_OPTS, headerDictionaries, mainDictionaries } from '@/core/RndPlayer/config';
+import { DEFAULT_PLAYER_OPTS, headerDictionaries, mainDictionaries } from '@/kernel/RndPlayer/config';
 import useCreate from '@/utils/hooks/useCreate';
 import useRndPlayerStore from '@/store/useRndPlayerStore';
 import { useEffect } from 'react';

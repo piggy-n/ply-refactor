@@ -3,7 +3,7 @@ import { classes } from '@/utils/methods/classes';
 import { useContext } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import '@/assets/styles/global.scss';
-import PlayControl from '@/core/Player/PlayControl';
+import PlayControl from '@/kernel/Player/PlayControl';
 
 const cn = 'Control-Panel';
 

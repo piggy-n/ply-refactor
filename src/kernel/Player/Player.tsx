@@ -5,13 +5,13 @@ import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import '@/assets/styles/global.scss';
 import { classes } from '@/utils/methods/classes';
 import useRndPlayerStore from '@/store/useRndPlayerStore';
-import Loading from '@/core/Player/Loading';
+import Loading from '@/kernel/Player/Loading';
 import { useVideo } from '@/utils/hooks/useVideo';
 import { useVideoMethods } from '@/utils/hooks/useVideoMethods';
 import { usePlayerStore } from '@/store/usePlayerStore';
 import { PlayerContext, playerContextDefaultValue } from '@/utils/hooks/usePlayerContext';
-import { Video } from '@/core/Player/Video';
-import PlayerController from '@/core/Player/PlayerController';
+import { Video } from '@/kernel/Player/Video';
+import PlayerController from '@/kernel/Player/PlayerController';
 import { useResizing } from '@/utils/hooks/useResizing';
 
 const cn = 'Player';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
-// import RndPlayer from '@/core/RndPlayer';
-import Player from '@/core/Player';
+// import RndPlayer from '@/kernel/RndPlayer';
+import Player from '@/kernel/Player';
 // import { randomString } from '@/utils/methods/randomString';
 
 const Demo = () => {

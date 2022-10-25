@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { classes } from '@/utils/methods/classes';
 import '@/assets/styles/global.scss';
-import { MouseEventHandler, useContext, useEffect, useMemo, useRef } from 'react';
+import { useContext, useEffect, useMemo, useRef } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import { useProgressStore } from '@/store/useProgressStore';
 import { useVideo } from '@/utils/hooks/useVideo';
 import useWindowClient from '@/utils/hooks/useWindowClient';
 import { percentToSeconds, toMinutesAndSeconds } from '@/utils/methods/time';
 import { hoverStylesHandler } from '@/utils/methods/hoverStylesHandler';
+import type { MouseEventHandler } from 'react';
 
 const cn = 'Progress-Bar';
 
