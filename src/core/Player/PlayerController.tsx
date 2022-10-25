@@ -81,26 +81,20 @@ const PlayerController = () => {
     };
 
     const pauseOrReplayHandler = () => {
-        if (ended) return;
+        if (ended) {
+            playerStoreDispatch({
+                controlled: !resizing && !ended
+            });
+        } else {
+            if (live) {
+                console.log('live');
+            }
 
-        if (live) {
-            console.log('live');
+            playerStoreDispatch({
+                loading: false
+            });
         }
-
-        playerStoreDispatch({
-            loading: false
-        });
-
         changePlayStatusHandler && changePlayStatusHandler();
-    };
-
-    const endBtnClickHandler = () => {
-        if (!ended) return;
-        changePlayStatusHandler && changePlayStatusHandler();
-
-        playerStoreDispatch({
-            controlled: !resizing && !ended
-        });
     };
 
     const mouseAndControllerStyleChangeHandler = () => {
@@ -154,11 +148,6 @@ const PlayerController = () => {
                     onClick={pauseOrReplayHandler}
                 >
                     <PlayButton />
-                </div>
-                <div
-                    className={classes(cn, 'btn')}
-                    onClick={endBtnClickHandler}
-                >
                     <EndButton />
                 </div>
                 <div
