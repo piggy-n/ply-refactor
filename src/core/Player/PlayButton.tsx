@@ -7,6 +7,10 @@ import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 const PlayButton = () => {
     const {
         videoEle,
+        // playerStoreDispatch,
+        playerStore: {
+            loading
+        }
     } = useContext(PlayerContext);
 
     const timerRef = useRef<NodeJS.Timer | null>(null);
@@ -16,13 +20,13 @@ const PlayButton = () => {
     useEffect(
         () => {
             const isPlaying = playing && !ended && !error;
-            const isPaused = !playing && !ended && !error;
+            const isPaused = !playing && !ended && !error && !loading;
 
             if (timerRef.current) {
                 clearTimeout(timerRef.current);
             }
 
-            if (isPlaying) {
+            if (isPlaying || loading) {
                 setVisible(false);
             }
 
@@ -39,6 +43,7 @@ const PlayButton = () => {
             playing,
             ended,
             error,
+            loading
         ]
     );
 

@@ -8,7 +8,6 @@ import { useRafInterval, useReactive } from 'ahooks';
 import { fullScreenHandler } from '@/utils/methods/fullScreen';
 import PlayButton from '@/core/Player/PlayButton';
 import EndButton from '@/core/Player/EndButton';
-import { pauseOrReplayHandler } from '@/utils/methods/pauseOrReplay';
 
 const cn = 'Player-Controller';
 
@@ -68,7 +67,7 @@ const PlayerController = () => {
         clickTimeoutRef.current = setTimeout(
             () => {
                 if (mouseState.mouseClickCount === 1) {
-                    pauseOrReplayHandler(!!live, ended, changePlayStatusHandler);
+                    pauseOrReplayHandler();
                 }
 
                 if (mouseState.mouseClickCount === 2 && fullScreen) {
@@ -79,6 +78,20 @@ const PlayerController = () => {
             },
             300
         );
+    };
+
+    const pauseOrReplayHandler = () => {
+        if (ended) return;
+
+        if (live) {
+            console.log('live');
+        }
+
+        playerStoreDispatch({
+            loading: false
+        });
+
+        changePlayStatusHandler && changePlayStatusHandler();
     };
 
     const endBtnClickHandler = () => {
@@ -131,14 +144,14 @@ const PlayerController = () => {
                 onMouseLeave={() => playerStoreDispatch({ controlled: false })}
             >
                 <div
-                    className={classes(cn, 'play-or-pause-wrapper')}
+                    className={classes(cn, 'wrapper')}
                     onMouseMove={() => playerControllerMouseStatusHandler('move')}
                     onMouseLeave={() => playerControllerMouseStatusHandler('leave')}
                     onClick={clickHandler}
                 />
                 <div
                     className={classes(cn, 'btn')}
-                    onClick={() => pauseOrReplayHandler(!!live, ended, changePlayStatusHandler)}
+                    onClick={pauseOrReplayHandler}
                 >
                     <PlayButton />
                 </div>
@@ -149,7 +162,7 @@ const PlayerController = () => {
                     <EndButton />
                 </div>
                 <div
-                    className={classes(cn, 'controller-and-progress-wrapper')}
+                    className={classes(cn, 'cp')}
                     onMouseEnter={() => mouseState.mouseIsOnController = true}
                     onMouseLeave={() => mouseState.mouseIsOnController = false}
                 >
