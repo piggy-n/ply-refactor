@@ -19,7 +19,7 @@ export const useLoading = () => {
         () => {
             const inBuffer = playing && buffering;
             const inPlay = playing && [1, 2].includes(networkState) && [3, 4].includes(readyState);
-            const inError = [0, 3].includes(networkState);
+            const inError = [0, 3].includes(networkState) || readyState === 0;
 
             if (loadingTimerRef.current) {
                 clearTimeout(loadingTimerRef.current);

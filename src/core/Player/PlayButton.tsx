@@ -7,7 +7,6 @@ import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 const PlayButton = () => {
     const {
         videoEle,
-        // playerStoreDispatch,
         playerStore: {
             loading
         }
@@ -35,7 +34,7 @@ const PlayButton = () => {
                     () => {
                         setVisible(true);
                     },
-                    300
+                    100
                 );
             }
         },
