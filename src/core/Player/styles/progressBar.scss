@@ -1,0 +1,67 @@
+@import 'src/assets/styles/mixin.scss';
+
+.#{$prefix}progress-bar {
+  @include ps(relative);
+  transition: all 0.5s;
+  width: 100%;
+
+  &-mask {
+    @include wh(100%, calc(100% + 6px));
+    @include ps(absolute, -3px, auto, auto, 0);
+    z-index: 3;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &-wrapper {
+    @include wh(100%, 4px);
+    @include ps(relative);
+    transition: all 0.3s;
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+
+    .#{$bar}buffered {
+      @include wh(0%, 100%);
+      @include ps(absolute, 0, auto, auto, 0);
+      background: rgba(255, 255, 255, 0.5);
+      z-index: 1;
+    }
+
+    .#{$bar}played {
+      @include wh(0%, 100%);
+      @include ps(absolute, 0, auto, auto, 0);
+      z-index: 2;
+
+      .control-point {
+        transition: all 0.3s;
+        @include wh(12px, 12px);
+        @include ps(absolute, -50%, -5px, auto, auto);
+        border-radius: 50%;
+        margin-top: 1px;
+      }
+    }
+
+    .#{$bar}pointer {
+      @include ps(absolute, 0, auto, auto, auto);
+
+      i {
+        @include wh(0, 0);
+        @include ps(absolute, -5px, auto, auto, -4px);
+        border-top: 4px solid rgba(22, 174, 224, 1);
+        border-right: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        border-left: 4px solid transparent;
+      }
+
+      span {
+        @include ps(absolute, -30px, auto, auto, 50%);
+        @include style(12px, rgba(239, 242, 246, 1));
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 1px 4px;
+      }
+    }
+  }
+}

@@ -8,6 +8,7 @@ import { useRafInterval, useReactive } from 'ahooks';
 import { fullScreenHandler } from '@/utils/methods/fullScreen';
 import PlayButton from '@/core/Player/PlayButton';
 import EndButton from '@/core/Player/EndButton';
+import ProgressBar from '@/core/Player/ProgressBar';
 
 const cn = 'Player-Controller';
 
@@ -155,6 +156,7 @@ const PlayerController = () => {
                     onMouseEnter={() => mouseState.mouseIsOnController = true}
                     onMouseLeave={() => mouseState.mouseIsOnController = false}
                 >
+                    <ProgressBar />
                 </div>
             </div>
             : null
