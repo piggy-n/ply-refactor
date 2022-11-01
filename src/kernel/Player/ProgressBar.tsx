@@ -219,32 +219,23 @@ const ProgressBar = () => {
                     />
                     <div
                         className={classes(cn, 'played')}
-                        style={{
-                            width: `${processPercentage}%`,
-                            background: 'rgba(22, 174, 224, 1)'
-                        }}
+                        style={{ width: `${processPercentage}%` }}
                     >
-                        <i
-                            ref={progressControlPointRef}
-                            className={'control-point'}
-                            style={{ background: 'rgba(22, 174, 224, 1)' }}
-                        />
+                        <i ref={progressControlPointRef} />
                     </div>
                     {
                         suspending && totalTime > 0 &&
-                        <>
-                            <div
-                                className={classes(cn, 'pointer')}
-                                style={{ left: `${position}px`, }}
-                            >
-                                <i />
-                                <span>
+                        <div
+                            className={classes(cn, 'pointer')}
+                            style={{ left: `${position}px`, }}
+                        >
+                            <i />
+                            <span>
                                 {
                                     toMinutesAndSeconds(totalTime, percentage)
                                 }
                             </span>
-                            </div>
-                        </>
+                        </div>
                     }
                 </div>
             </div>

@@ -32,11 +32,13 @@
     .#{$bar}played {
       @include wh(0%, 100%);
       @include ps(absolute, 0, auto, auto, 0);
+      background: $theme-active-color;
       z-index: 2;
 
-      .control-point {
+      i {
         @include wh(12px, 12px);
         @include ps(absolute, -50%, -5px, auto, auto);
+        background: $theme-active-color;
         border-radius: 50%;
         margin-top: 1px;
         transition: all 0.3s;
