@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import '@/assets/styles/global.scss';
 import PlayControl from '@/kernel/Player/PlayControl';
+import { pcn } from '@/kernel/config';
 
 const cn = 'Control-Panel';
 
@@ -15,7 +16,7 @@ const ControlPanel = () => {
     } = useContext(PlayerContext);
 
     return (
-        <div className={classes(cn, '', { 'ws-op-1': controlled })}>
+        <div className={classes(cn, '', { [`${pcn}-op-1`]: controlled })}>
             <div className={classes(cn, 'left-warp')}>
                 <PlayControl />
             </div>

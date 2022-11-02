@@ -14,9 +14,10 @@ import { Video } from '@/kernel/Player/Video';
 import PlayerController from '@/kernel/Player/PlayerController';
 import { useResizing } from '@/utils/hooks/useResizing';
 import { randomString } from '@/utils/methods/randomString';
+import { pcn } from '@/kernel/config';
 
 const cn = 'Player';
-const cnPrefix = `ws-${cn.toLowerCase()}`;
+const cnPrefix = `${pcn}-${cn.toLowerCase()}`;
 
 const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     {

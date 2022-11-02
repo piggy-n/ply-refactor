@@ -10,6 +10,7 @@ import PlayButton from '@/kernel/Player/PlayButton';
 import EndButton from '@/kernel/Player/EndButton';
 import ProgressBar from '@/kernel/Player/ProgressBar';
 import ControlPanel from '@/kernel/Player/ControlPanel';
+import { pcn } from '@/kernel/config';
 
 const cn = 'Player-Controller';
 
@@ -125,7 +126,7 @@ const PlayerController = () => {
     return (
         controllable && url
             ? <div
-                className={classes(cn, '', { 'dark-mask': ended && url && !loading })}
+                className={classes(cn, '', { [`${pcn}-dark-mask`]: ended && url && !loading })}
                 onMouseEnter={() => playerStoreDispatch({ controlled: !resizing && !ended })}
                 onMouseLeave={() => playerStoreDispatch({ controlled: false })}
             >

@@ -1,5 +1,7 @@
 import type { PlayerOpts } from '@/index.d';
 
+const pcn = 'ws';
+
 const DEFAULT_PLAYER_OPTS: PlayerOpts = {
     defaultPosition: {
         x: 0,
@@ -21,6 +23,7 @@ const mainDictionaries: Record<string, string> = {
 };
 
 export {
+    pcn,
     DEFAULT_PLAYER_OPTS,
     headerDictionaries,
     mainDictionaries,

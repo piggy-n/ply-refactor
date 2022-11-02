@@ -13,3 +13,7 @@
   opacity: 1;
 }
 
+.#{$prefix}dark-mask {
+  background: $mask-background;
+}
+
