@@ -8,6 +8,7 @@ import { pcn } from '@/kernel/config';
 import ReloadControl from '@/kernel/Player/ReloadControl';
 import TimeViewer from '@/kernel/Player/TimeViewer';
 import FormatViewer from '@/kernel/Player/FormatViewer';
+import QualityViewer from '@/kernel/Player/QualityViewer';
 
 const cn = 'Control-Panel';
 
@@ -27,6 +28,7 @@ const ControlPanel = () => {
             </div>
             <div className={classes(cn, 'right-warp')}>
                 <FormatViewer />
+                <QualityViewer />
             </div>
         </div>
     );
