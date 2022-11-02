@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import { useVideo } from '@/utils/hooks/useVideo';
-import { qualityObj, QualityType } from '@/kernel/config';
+import { qualityObj } from '@/kernel/config';
+import type { QualityType } from '@/kernel/config';
 import * as React from 'react';
 import { classes } from '@/utils/methods/classes';
 import '@/assets/styles/global.scss';
