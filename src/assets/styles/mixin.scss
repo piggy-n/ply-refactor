@@ -65,16 +65,24 @@ $mh-prefix: mh-;
   font-weight: $bold;
 }
 
-@mixin normalIcon() {
+@mixin icon() {
   line-height: 1;
 
   svg,
   use {
     cursor: pointer;
   }
+}
 
+@mixin zoomIcon() {
   svg:hover {
     animation: scaleAnimate .5s ease;
+  }
+}
+
+@mixin rotateIcon() {
+  svg:hover {
+    animation: rotateAnimate .7s ease;
   }
 }
 
@@ -97,6 +105,15 @@ $mh-prefix: mh-;
     }
     100% {
       transform: scale(1);
+    }
+  }
+
+  @keyframes rotateAnimate {
+    0% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(0deg);
     }
   }
 }

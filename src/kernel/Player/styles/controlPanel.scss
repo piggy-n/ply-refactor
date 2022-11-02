@@ -24,7 +24,14 @@
     margin-left: 12px;
 
     .#{$prefix}play-control {
-      @include normalIcon();
+      @include icon();
+      @include zoomIcon();
+    }
+
+    .#{$prefix}reload-control {
+      @include icon();
+      @include rotateIcon();
+      padding-left: 8px;
     }
   }
 
