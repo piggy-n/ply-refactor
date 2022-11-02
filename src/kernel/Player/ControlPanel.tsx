@@ -9,6 +9,7 @@ import ReloadControl from '@/kernel/Player/ReloadControl';
 import TimeViewer from '@/kernel/Player/TimeViewer';
 import FormatViewer from '@/kernel/Player/FormatViewer';
 import QualityViewer from '@/kernel/Player/QualityViewer';
+import TransmissionRateViewer from '@/kernel/Player/TransmissionRateViewer';
 
 const cn = 'Control-Panel';
 
@@ -29,6 +30,7 @@ const ControlPanel = () => {
             <div className={classes(cn, 'right-warp')}>
                 <FormatViewer />
                 <QualityViewer />
+                <TransmissionRateViewer />
             </div>
         </div>
     );

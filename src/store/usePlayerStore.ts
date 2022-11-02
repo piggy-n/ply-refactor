@@ -9,8 +9,9 @@ import { useReducer } from 'react';
  * @param {boolean} loading - 是否加载中
  * @param {string} mime - mime类型
  * @param {boolean} resizing - 是否正在调整大小
+ * @param {number} transmissionRate - 传输速率
  */
-export interface PlayerStoreState<U = boolean, K = string> {
+export interface PlayerStoreState<U = boolean, K = string, R = number> {
     buffering?: U;
     controlled?: U;
     error?: U;
@@ -19,6 +20,7 @@ export interface PlayerStoreState<U = boolean, K = string> {
     loading?: U;
     mime?: K;
     resizing?: U;
+    transmissionRate?: R;
 }
 
 export const initialState: PlayerStoreState = {};

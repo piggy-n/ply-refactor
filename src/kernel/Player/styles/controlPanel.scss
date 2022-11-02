@@ -51,10 +51,15 @@
     flex: 1;
 
     .#{$prefix}format-viewer,
-    .#{$prefix}quality-viewer {
+    .#{$prefix}quality-viewer,
+    .#{$prefix}transmission-rate-viewer {
       @include style(12px, rgba(255, 255, 255, .6));
       line-height: 12px;
       padding-right: 12px;
+    }
+
+    .#{$prefix}transmission-rate-viewer {
+      width: 76px;
     }
   }
 }
