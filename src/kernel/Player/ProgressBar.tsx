@@ -16,7 +16,8 @@ const ProgressBar = () => {
     const {
         playerStore: {
             controlled,
-            live
+            live,
+            error
         },
         videoEle,
     } = useContext(PlayerContext);
@@ -77,6 +78,8 @@ const ProgressBar = () => {
     distanceOfClientXRef.current = clientX;
 
     const mouseDownHandler = () => {
+        if (error) return;
+
         const progressMaskEleOffsetWidth = progressMaskRef.current!.offsetWidth;
 
         draggingIntervalRef.current && clearInterval(draggingIntervalRef.current);
@@ -147,6 +150,8 @@ const ProgressBar = () => {
     };
 
     const clickHandler = () => {
+        if (error) return;
+
         videoEle!.currentTime = percentToSeconds(percentage, totalTime);
 
         progressStoreDispatch({
