@@ -39,15 +39,15 @@ const Demo = () => {
                     }}
                     url={url}
                 />
-                <Player
-                    videoContainerEleOpts={{
-                        style: {
-                            width: '480px',
-                            height: '270px',
-                        },
-                    }}
-                    url={'https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/test/file/2021/07/01/haiwang.mp4'}
-                />
+                {/*<Player*/}
+                {/*    videoContainerEleOpts={{*/}
+                {/*        style: {*/}
+                {/*            width: '480px',*/}
+                {/*            height: '270px',*/}
+                {/*        },*/}
+                {/*    }}*/}
+                {/*    url={'https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/test/file/2021/07/01/haiwang.mp4'}*/}
+                {/*/>*/}
             </div>
         </>
     );

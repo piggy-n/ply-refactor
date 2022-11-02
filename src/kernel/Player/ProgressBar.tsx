@@ -49,7 +49,7 @@ const ProgressBar = () => {
     } = useVideo(videoEle);
 
     const bufferedPercentage = useMemo(
-        () => networkState === 3 && readyState === 0
+        () => [2, 3].includes(networkState) && readyState === 0
             ? 0
             : ((bufferedTime / totalTime) * 100).toString(),
         [
@@ -61,7 +61,7 @@ const ProgressBar = () => {
     );
 
     const processPercentage = useMemo(
-        () => networkState === 3 && readyState === 0
+        () => [2, 3].includes(networkState) && readyState === 0
             ? 0
             : ((currentTime / totalTime) * 100).toString(),
         [
