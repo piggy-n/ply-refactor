@@ -11,12 +11,15 @@ const cn = 'Loading';
 const Loading = () => {
     const {
         controllable,
+        videoEle,
+        playerStoreDispatch,
         playerStore: {
-            loading
+            buffering,
+            loading,
         }
     } = useContext(PlayerContext);
 
-    useLoading();
+    useLoading(!!buffering, playerStoreDispatch, videoEle);
 
     return (
         loading
