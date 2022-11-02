@@ -38,17 +38,7 @@ const PlayerController = () => {
     const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const { playing, ended, changePlayStatusHandler } = useVideo(videoEle);
-
-    const classHandler = (): string[] => {
-        const classNameArr = [];
-
-        if ((!playing || ended) && url && !loading) {
-            classNameArr.push('dark-mask');
-        }
-
-        return classNameArr;
-    };
+    const { ended, changePlayStatusHandler } = useVideo(videoEle);
 
     const playerControllerMouseStatusHandler = (status: 'move' | 'leave') => {
         if (status === 'move') {
@@ -135,7 +125,7 @@ const PlayerController = () => {
     return (
         controllable && url
             ? <div
-                className={classes(cn, '', classHandler())}
+                className={classes(cn, '', { 'dark-mask': ended && url && !loading })}
                 onMouseEnter={() => playerStoreDispatch({ controlled: !resizing && !ended })}
                 onMouseLeave={() => playerStoreDispatch({ controlled: false })}
             >
