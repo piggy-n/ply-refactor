@@ -1,18 +1,21 @@
 import { useEffect, useRef } from 'react';
 import { useSize } from 'ahooks';
-import { usePlayerStore } from '@/store/usePlayerStore';
+import type { PlayerStoreState } from '@/store/usePlayerStore';
+import type { Dispatch } from 'react';
 
-export const useResizing = (ele: HTMLDivElement | null) => {
-    const { playerStoreDispatch } = usePlayerStore();
+export const useResizing = (
+    dispatch: Dispatch<PlayerStoreState>,
+    ele: HTMLDivElement | null
+) => {
     const resizingTimerRef = useRef<NodeJS.Timer>();
     const eleSize = useSize(ele);
 
     useEffect(
         () => {
-            playerStoreDispatch({ resizing: true });
+            dispatch({ resizing: true });
 
             resizingTimerRef.current = setTimeout(
-                () => playerStoreDispatch({ resizing: false }),
+                () => dispatch({ resizing: false }),
                 300
             );
 

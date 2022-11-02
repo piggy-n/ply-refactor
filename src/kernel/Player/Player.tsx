@@ -64,7 +64,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         ]
     );
 
-    useResizing(videoContainerEleRef.current);
+    useResizing(playerStoreDispatch, videoContainerEleRef.current);
 
     useImperativeHandle(
         ref,
