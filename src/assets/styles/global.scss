@@ -1,10 +1,15 @@
 @import "reset";
-@import 'src/assets/styles/mixin.scss';
-@import "../../kernel/Player/styles/player.scss";
-@import "../../kernel/Player/styles/loading.scss";
-@import "../../kernel/Player/styles/progressBar.scss";
-@import "../../kernel/Player/styles/playerController.scss";
-@import "../../kernel/Player/styles/controlPanel.scss";
-@import "../../kernel/RndPlayer/styles/rndPlayer.scss";
-@import "../../components/CommonComponents/Icon/styles/icon.scss";
-@import "../../components/UIComponents/DefaultHeader/styles/defaultHeader.scss";
+@import "mixin";
+@import "src/kernel/Player/styles/player.scss";
+@import "src/kernel/Player/styles/loading.scss";
+@import "src/kernel/Player/styles/progressBar.scss";
+@import "src/kernel/Player/styles/playerController.scss";
+@import "src/kernel/Player/styles/controlPanel.scss";
+@import "src/kernel/RndPlayer/styles/rndPlayer.scss";
+@import "src/components/CommonComponents/Icon/styles/icon.scss";
+@import "src/components/UIComponents/DefaultHeader/styles/defaultHeader.scss";
+
+.#{$prefix}op-1 {
+  opacity: 1;
+}
+

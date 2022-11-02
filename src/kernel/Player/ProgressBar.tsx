@@ -196,7 +196,7 @@ const ProgressBar = () => {
 
     return (
         !live
-            ? <div className={classes(cn, '', { 'show-progress': controlled })}>
+            ? <div className={classes(cn, '', { 'ws-op-1': controlled })}>
                 <div
                     ref={progressMaskRef}
                     className={classes(cn, 'mask')}

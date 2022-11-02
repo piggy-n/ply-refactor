@@ -15,7 +15,7 @@ const ControlPanel = () => {
     } = useContext(PlayerContext);
 
     return (
-        <div className={classes(cn, '', { 'show-control-panel': controlled })}>
+        <div className={classes(cn, '', { 'ws-op-1': controlled })}>
             <div className={classes(cn, 'left-warp')}>
                 <PlayControl />
             </div>
