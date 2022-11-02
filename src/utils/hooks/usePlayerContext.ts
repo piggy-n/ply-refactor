@@ -8,6 +8,7 @@ import { initialState } from '@/store/usePlayerStore';
 export interface PlayerContextType extends PlayerProps {
     playerStore: PlayerStoreState;
     playerStoreDispatch: Dispatch<PlayerStoreState>;
+    uuid: string;
     videoAttributes: VideoAttributes;
     videoEle: HTMLVideoElement | null;
     videoContainerEle: HTMLDivElement | null;

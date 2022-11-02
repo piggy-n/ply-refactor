@@ -13,6 +13,7 @@ import { PlayerContext, playerContextDefaultValue } from '@/utils/hooks/usePlaye
 import { Video } from '@/kernel/Player/Video';
 import PlayerController from '@/kernel/Player/PlayerController';
 import { useResizing } from '@/utils/hooks/useResizing';
+import { randomString } from '@/utils/methods/randomString';
 
 const cn = 'Player';
 const cnPrefix = `ws-${cn.toLowerCase()}`;
@@ -32,6 +33,11 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     const { playerStore, playerStoreDispatch } = usePlayerStore();
     const { setState } = useRndPlayerStore;
 
+    const uuid = useMemo(
+        () => randomString(),
+        []
+    );
+
     const playerContextValue = useMemo(
         () => {
             return Object.assign(
@@ -40,6 +46,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
                     ...playerContextDefaultValue,
                     playerStore,
                     playerStoreDispatch,
+                    uuid,
                     videoAttributes,
                     videoEle: videoEleRef.current,
                     videoContainerEle: videoContainerEleRef.current,
@@ -50,6 +57,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         [
             playerStore,
             playerStoreDispatch,
+            uuid,
             videoEleRef.current,
             videoContainerEleRef.current,
             { ...rest }
@@ -71,7 +79,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         <PlayerContext.Provider value={playerContextValue}>
             <div
                 ref={videoContainerEleRef}
-                id={`${cnPrefix}-container`}
+                id={`${cnPrefix}-container-${uuid}`}
                 className={classes(cn, '')}
                 onMouseOver={() => setState({ disableDrag: true })}
                 {...videoContainerEleOpts}
