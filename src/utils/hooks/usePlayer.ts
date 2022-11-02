@@ -1,47 +1,51 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
+import type { Dispatch } from 'react';
 import useMandatoryUpdate from '@/utils/hooks/useMandatoryUpdate';
-import { PlayerContext } from '@/utils/hooks/usePlayerContext';
+import type { PlayerStoreState } from '@/store/usePlayerStore';
 
-export const usePlayer = () => {
-    const { url = '', videoEle, playerStoreDispatch } = useContext(PlayerContext);
+export const usePlayer = (
+    dispatch: Dispatch<PlayerStoreState>,
+    ele: HTMLVideoElement | null,
+    url: string,
+) => {
     const forceUpdate = useMandatoryUpdate();
 
-    const waitingListener = () => playerStoreDispatch({
+    const waitingListener = () => dispatch({
         buffering: true
     });
 
-    const playingListener = () => playerStoreDispatch({
+    const playingListener = () => dispatch({
         buffering: false
     });
 
     useEffect(
         () => {
-            if (!videoEle) {
-                playerStoreDispatch({ loading: false });
+            if (!ele) {
+                dispatch({ loading: false });
                 return;
             }
 
             const live = /^ws:\/\/|^wss:\/\//.test(url);
-            live ? console.log('live') : videoEle.src = url;
+            live ? console.log('live') : ele.src = url;
 
-            playerStoreDispatch({
+            dispatch({
                 live,
                 loading: true
             });
 
             forceUpdate();
 
-            videoEle.addEventListener('waiting', waitingListener);
-            videoEle.addEventListener('playing', playingListener);
+            ele.addEventListener('waiting', waitingListener);
+            ele.addEventListener('playing', playingListener);
 
             return () => {
-                videoEle.removeEventListener('waiting', waitingListener);
-                videoEle.removeEventListener('playing', playingListener);
+                ele.removeEventListener('waiting', waitingListener);
+                ele.removeEventListener('playing', playingListener);
             };
         },
         [
             url,
-            videoEle
+            ele
         ]
     );
 };
