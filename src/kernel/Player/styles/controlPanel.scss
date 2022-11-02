@@ -49,5 +49,11 @@
     @include fr(flex-end);
     margin-right: 12px;
     flex: 1;
+
+    .#{$prefix}format-viewer {
+      @include style(12px, rgba(255, 255, 255, .6));
+      line-height: 12px;
+      padding-right: 12px;
+    }
   }
 }

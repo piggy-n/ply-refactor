@@ -16,6 +16,7 @@ const TimeViewer = () => {
     } = useContext(PlayerContext);
 
     const { currentTime, totalTime } = useVideo(videoEle);
+
     return (
         <div className={classes(cn, '')}>
             {

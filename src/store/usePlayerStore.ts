@@ -7,15 +7,17 @@ import { useReducer } from 'react';
  * @param {boolean} error - 是否出错
  * @param {boolean} isFullScreen - 是否全屏
  * @param {boolean} loading - 是否加载中
+ * @param {string} mime - mime类型
  * @param {boolean} resizing - 是否正在调整大小
  */
-export interface PlayerStoreState<U = boolean> {
+export interface PlayerStoreState<U = boolean, K = string> {
     buffering?: U;
     controlled?: U;
     error?: U;
     isFullscreen?: U;
     live?: U;
     loading?: U;
+    mime?: K;
     resizing?: U;
 }
 
