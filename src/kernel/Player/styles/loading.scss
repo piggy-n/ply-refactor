@@ -1,5 +1,3 @@
-@import "src/assets/styles/mixin.scss";
-
 .#{$prefix}loading {
   @include fd(center);
   @include style(12px, $default-text-color);

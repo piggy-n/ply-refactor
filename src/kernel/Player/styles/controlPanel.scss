@@ -1,11 +1,10 @@
-@import 'src/assets/styles/mixin.scss';
-
 .#{$prefix}control-panel {
   @include ps(relative);
   @include wh(100%, 40px);
   @include fr(flex-start);
   transition: all 0.5s;
   color: rgba(238, 238, 238, 1);
+  opacity: 0;
 
   &:hover {
     cursor: default;
@@ -34,4 +33,8 @@
     margin-right: 12px;
     flex: 1;
   }
+}
+
+.show-control-panel {
+  opacity: 1;
 }

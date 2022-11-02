@@ -15,10 +15,7 @@ const ControlPanel = () => {
     } = useContext(PlayerContext);
 
     return (
-        <div
-            className={classes(cn, '')}
-            style={{ opacity: controlled ? 1 : 0 }}
-        >
+        <div className={classes(cn, '', { 'show-control-panel': controlled })}>
             <div className={classes(cn, 'left-warp')}>
                 <PlayControl />
             </div>

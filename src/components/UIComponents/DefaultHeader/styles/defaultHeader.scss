@@ -1,5 +1,3 @@
-@import '../../../../assets/styles/mixin';
-
 .#{$prefix}default-header {
   @include fr(space-between, center, nowrap);
   @include wh(100%, 36px);

@@ -1,5 +1,3 @@
-@import '../../../../assets/styles/mixin';
-
 .#{$prefix}icon {
   @include wh(16px, 16px);
   display: inline-flex;
