@@ -144,7 +144,7 @@ const PlayerController = () => {
                     <EndButton />
                 </div>
                 <div
-                    className={classes(cn, 'cp')}
+                    className={classes(cn, 'pnc')}
                     onMouseEnter={() => mouseState.mouseIsOnController = true}
                     onMouseLeave={() => mouseState.mouseIsOnController = false}
                 >
