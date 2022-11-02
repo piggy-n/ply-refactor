@@ -230,7 +230,7 @@ const ProgressBar = () => {
                         suspending && totalTime > 0 &&
                         <div
                             className={classes(cn, 'pointer')}
-                            style={{ left: `${position}px`, }}
+                            style={{ left: `${position}px` }}
                         >
                             <i />
                             <span>
