@@ -1,20 +1,22 @@
 import { Icon } from '@/index';
 import * as React from 'react';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { useVideo } from '@/utils/hooks/useVideo';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 
 const PlayButton = () => {
     const {
-        videoEle,
         playerStore: {
             loading
+        },
+        videoProperties:{
+            playing,
+            ended,
+            error
         }
     } = useContext(PlayerContext);
 
     const timerRef = useRef<NodeJS.Timer | null>(null);
     const [visible, setVisible] = useState(false);
-    const { playing, ended, error } = useVideo(videoEle);
 
     useEffect(
         () => {

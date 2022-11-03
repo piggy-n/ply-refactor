@@ -2,17 +2,16 @@ import { Icon } from '@/index';
 import * as React from 'react';
 import { useContext } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
-import { useVideo } from '@/utils/hooks/useVideo';
 
 const EndButton = () => {
     const {
-        videoEle,
         playerStore: {
             live
+        },
+        videoProperties: {
+            ended
         }
     } = useContext(PlayerContext);
-
-    const { ended } = useVideo(videoEle);
 
     return (
         ended && !live

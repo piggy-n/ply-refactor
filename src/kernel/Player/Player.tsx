@@ -30,7 +30,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     const videoContainerEleRef = useRef<HTMLDivElement | null>(null);
 
     const videoMethods = useVideoMethods();
-    const { videoAttributes } = useVideo(videoEleRef.current);
+    const videoProperties = useVideo(videoEleRef.current);
     const { playerStore, playerStoreDispatch } = usePlayerStore();
     const { setState } = useRndPlayerStore;
 
@@ -48,7 +48,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
                     playerStore,
                     playerStoreDispatch,
                     uuid,
-                    videoAttributes,
+                    videoProperties,
                     videoEle: videoEleRef.current,
                     videoContainerEle: videoContainerEleRef.current,
                     ...rest
@@ -71,7 +71,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         ref,
         () => ({
             video: videoEleRef.current,
-            ...videoAttributes,
+            ...videoProperties.videoAttributes,
             ...videoMethods,
         }),
     );

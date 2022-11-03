@@ -13,13 +13,14 @@ const Loading = () => {
         controllable,
         videoEle,
         playerStoreDispatch,
+        videoProperties,
         playerStore: {
             buffering,
             loading,
         }
     } = useContext(PlayerContext);
 
-    useLoading(!!buffering, playerStoreDispatch, videoEle);
+    useLoading(!!buffering, playerStoreDispatch, videoEle, videoProperties);
 
     return (
         loading

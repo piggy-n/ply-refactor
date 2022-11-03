@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useVideo } from '@/utils/hooks/useVideo';
+import type { useVideo } from '@/utils/hooks/useVideo';
 import type { PlayerStoreState } from '@/store/usePlayerStore';
 import type { Dispatch } from 'react';
 
@@ -7,10 +7,11 @@ export const useLoading = (
     buffering: boolean,
     dispatch: Dispatch<PlayerStoreState>,
     ele: HTMLVideoElement | null,
+    videoProperties: ReturnType<typeof useVideo>
 ) => {
     const loadingTimerRef = useRef<NodeJS.Timer | null>(null);
 
-    const { playing, networkState, readyState } = useVideo(ele);
+    const { playing, networkState, readyState } = videoProperties;
 
     useEffect(
         () => {

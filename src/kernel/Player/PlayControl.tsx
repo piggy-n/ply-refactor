@@ -3,22 +3,22 @@ import '@/assets/styles/global.scss';
 import { classes } from '@/utils/methods/classes';
 import { useContext } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
-import { useVideo } from '@/utils/hooks/useVideo';
 import Icon from '@/components/CommonComponents/Icon';
 
 const cn = 'Play-Control';
 
 const PlayControl = () => {
     const {
-        videoEle,
         playerStoreDispatch,
         playerStore: {
             live,
             error
+        },
+        videoProperties:{
+            playing,
+            changePlayStatusHandler
         }
     } = useContext(PlayerContext);
-
-    const { playing, changePlayStatusHandler } = useVideo(videoEle);
 
     const clickHandler = () => {
         if (error) return;

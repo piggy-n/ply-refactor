@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { classes } from '@/utils/methods/classes';
 import '@/assets/styles/global.scss';
-import { useVideo } from '@/utils/hooks/useVideo';
 import { useContext, useRef } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import { useRafInterval, useReactive } from 'ahooks';
@@ -19,9 +18,12 @@ const PlayerController = () => {
         url,
         controllable,
         fullScreen,
-        videoEle,
         playerStoreDispatch,
         videoContainerEle,
+        videoProperties:{
+            ended,
+            changePlayStatusHandler
+        },
         playerStore: {
             resizing,
             loading,
@@ -38,8 +40,6 @@ const PlayerController = () => {
 
     const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-    const { ended, changePlayStatusHandler } = useVideo(videoEle);
 
     const playerControllerMouseStatusHandler = (status: 'move' | 'leave') => {
         if (status === 'move') {

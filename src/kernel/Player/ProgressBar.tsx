@@ -4,7 +4,6 @@ import '@/assets/styles/global.scss';
 import { useContext, useEffect, useMemo, useRef } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import { useProgressStore } from '@/store/useProgressStore';
-import { useVideo } from '@/utils/hooks/useVideo';
 import useWindowClient from '@/utils/hooks/useWindowClient';
 import { percentToSeconds, toMinutesAndSeconds } from '@/utils/methods/time';
 import { hoverStylesHandler } from '@/utils/methods/hoverStylesHandler';
@@ -19,6 +18,13 @@ const ProgressBar = () => {
             controlled,
             live,
             error
+        },
+        videoProperties:{
+            currentTime,
+            totalTime,
+            bufferedTime,
+            networkState,
+            readyState
         },
         videoEle,
     } = useContext(PlayerContext);
@@ -41,14 +47,6 @@ const ProgressBar = () => {
         },
         progressStoreDispatch
     } = useProgressStore();
-
-    const {
-        currentTime,
-        totalTime,
-        bufferedTime,
-        networkState,
-        readyState
-    } = useVideo(videoEle);
 
     const bufferedPercentage = useMemo(
         () => [2, 3].includes(networkState) && readyState === 0

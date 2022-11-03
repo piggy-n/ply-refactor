@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
-import { useVideo } from '@/utils/hooks/useVideo';
 import { qualityObj } from '@/kernel/config';
 import type { QualityType } from '@/kernel/config';
 import * as React from 'react';
@@ -10,10 +9,12 @@ import '@/assets/styles/global.scss';
 const cn = 'Quality-Viewer';
 
 const QualityViewer = () => {
-    const { videoEle } = useContext(PlayerContext);
-    const { videoSize } = useVideo(videoEle);
+    const {
+        videoProperties: {
+            videoSize
+        }
+    } = useContext(PlayerContext);
     const { videoWidth } = videoSize || { videoWidth: 0 };
-
     const [quality, setQuality] = useState<QualityType>();
 
     useEffect(

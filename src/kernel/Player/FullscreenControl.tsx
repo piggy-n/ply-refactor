@@ -10,7 +10,7 @@ const cn = 'Fullscreen-Control';
 
 const FullscreenControl = () => {
     const {
-        fullScreen = true,
+        fullScreen,
         videoContainerEle,
         playerStoreDispatch,
         playerStore: {
