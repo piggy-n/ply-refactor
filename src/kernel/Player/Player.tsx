@@ -34,6 +34,11 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     const { playerStore, playerStoreDispatch } = usePlayerStore();
     const { setState } = useRndPlayerStore;
 
+    const uuid = useMemo(
+        () => randomString(),
+        []
+    );
+
     const playerContextValue = useMemo(
         () => Object.assign(
             {},
@@ -41,16 +46,17 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
                 ...playerContextDefaultValue,
                 playerStore,
                 playerStoreDispatch,
+                uuid,
                 videoProperties,
                 videoEle: videoEleRef.current,
                 videoContainerEle: videoContainerEleRef.current,
-                uuid: useMemo(() => randomString(), []),
                 ...rest
             }
         ),
         [
             playerStore,
             playerStoreDispatch,
+            uuid,
             videoEleRef.current,
             videoContainerEleRef.current,
             { ...rest }
@@ -75,7 +81,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         <PlayerContext.Provider value={playerContextValue}>
             <div
                 ref={videoContainerEleRef}
-                id={`${cnPrefix}-container-${playerContextValue.uuid}`}
+                id={`${cnPrefix}-container-${uuid}`}
                 className={classes(cn, '')}
                 onMouseOver={() => setState({ disableDrag: true })}
                 {...videoContainerEleOpts}
