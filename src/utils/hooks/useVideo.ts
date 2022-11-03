@@ -42,78 +42,61 @@ export const useVideo = (ele: HTMLVideoElement | null) => {
         }
     };
 
+    const canPlayHandler = () => {
+        if (!videoEle) return;
+
+        setVideoArgsHandler({
+            totalTime: videoEle.duration,
+            videoSize: {
+                videoWidth: videoEle.videoWidth,
+                videoHeight: videoEle.videoHeight
+            },
+        });
+    };
+
+    const progressHandler = () => {
+        if (!videoEle) return;
+
+        if (videoEle.buffered.length >= 1) {
+            setVideoArgsHandler({
+                bufferedTime: videoEle.buffered.end(0),
+            });
+        }
+    };
+
+    const playOrPauseHandler = () => {
+        if (!videoEle) return;
+
+        setVideoArgsHandler({
+            playing: !videoEle.paused,
+        });
+    };
+
+    const endHandler = () => {
+        if (!videoEle) return;
+
+        setVideoArgsHandler({
+            ended: videoEle.ended,
+        });
+    };
+
+    const errorHandler = () => {
+        setVideoArgsHandler({
+            error: Date.now(),
+        });
+    };
+
     useEffect(
         () => {
             if (!videoEle) return;
 
-            videoEle.addEventListener(
-                'canplay',
-                () => {
-                    setVideoArgsHandler({
-                        totalTime: videoEle.duration,
-                        videoSize: {
-                            videoWidth: videoEle.videoWidth,
-                            videoHeight: videoEle.videoHeight
-                        },
-                    });
-                }
-            );
-
-            videoEle.addEventListener(
-                'progress',
-                () => {
-                    if (videoEle.buffered.length >= 1) {
-                        setVideoArgsHandler({
-                            bufferedTime: videoEle.buffered.end(0),
-                        });
-                    }
-                }
-            );
-
-            videoEle.addEventListener(
-                'play',
-                () => {
-                    setVideoArgsHandler({
-                        playing: !videoEle.paused,
-                    });
-                }
-            );
-
-            videoEle.addEventListener(
-                'pause',
-                () => {
-                    setVideoArgsHandler({
-                        playing: !videoEle.paused,
-                    });
-                }
-            );
-
-            videoEle.addEventListener(
-                'timeupdate',
-                () => {
-                    setVideoArgsHandler({
-                        playing: !videoEle.paused,
-                    });
-                }
-            );
-
-            videoEle.addEventListener(
-                'ended',
-                () => {
-                    setVideoArgsHandler({
-                        ended: videoEle.ended,
-                    });
-                }
-            );
-
-            videoEle.addEventListener(
-                'error',
-                () => {
-                    setVideoArgsHandler({
-                        error: Date.now(),
-                    });
-                }
-            );
+            videoEle.addEventListener('canplay', canPlayHandler);
+            videoEle.addEventListener('progress', progressHandler);
+            videoEle.addEventListener('play', playOrPauseHandler);
+            videoEle.addEventListener('pause', playOrPauseHandler);
+            videoEle.addEventListener('timeupdate', playOrPauseHandler);
+            videoEle.addEventListener('ended', endHandler);
+            videoEle.addEventListener('error', errorHandler);
 
             videoInterval.current = setInterval(
                 () => {
@@ -136,6 +119,13 @@ export const useVideo = (ele: HTMLVideoElement | null) => {
             );
 
             return () => {
+                videoEle.removeEventListener('canplay', canPlayHandler);
+                videoEle.removeEventListener('progress', progressHandler);
+                videoEle.removeEventListener('play', playOrPauseHandler);
+                videoEle.removeEventListener('pause', playOrPauseHandler);
+                videoEle.removeEventListener('timeupdate', playOrPauseHandler);
+                videoEle.removeEventListener('ended', endHandler);
+                videoEle.removeEventListener('error', errorHandler);
                 videoInterval.current && clearInterval(videoInterval.current);
             };
         },
