@@ -12,4 +12,18 @@
     pointer-events: none;
     object-fit: fill;
   }
+
+  .#{$prefix}loading {
+    @include fd(center);
+    @include style(12px, $default-text-color);
+    z-index: 1;
+
+    p {
+      padding-top: 6px;
+    }
+
+    svg {
+      animation: loading 1.5s linear infinite;
+    }
+  }
 }
