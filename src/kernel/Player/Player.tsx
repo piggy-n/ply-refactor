@@ -40,21 +40,19 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     );
 
     const playerContextValue = useMemo(
-        () => {
-            return Object.assign(
-                {},
-                {
-                    ...playerContextDefaultValue,
-                    playerStore,
-                    playerStoreDispatch,
-                    uuid,
-                    videoProperties,
-                    videoEle: videoEleRef.current,
-                    videoContainerEle: videoContainerEleRef.current,
-                    ...rest
-                }
-            );
-        },
+        () => Object.assign(
+            {},
+            {
+                ...playerContextDefaultValue,
+                playerStore,
+                playerStoreDispatch,
+                uuid,
+                videoProperties,
+                videoEle: videoEleRef.current,
+                videoContainerEle: videoContainerEleRef.current,
+                ...rest
+            }
+        ),
         [
             playerStore,
             playerStoreDispatch,
@@ -65,7 +63,10 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         ]
     );
 
-    useResizing(playerStoreDispatch, videoContainerEleRef.current);
+    useResizing(
+        playerStoreDispatch,
+        videoContainerEleRef.current
+    );
 
     useImperativeHandle(
         ref,
