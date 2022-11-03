@@ -58,6 +58,11 @@
       padding-right: 12px;
     }
 
+    .#{$prefix}fullscreen-control {
+      @include icon();
+      @include zoomIcon();
+    }
+
     .#{$prefix}transmission-rate-viewer {
       width: 76px;
     }

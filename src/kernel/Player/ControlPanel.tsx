@@ -10,6 +10,7 @@ import TimeViewer from '@/kernel/Player/TimeViewer';
 import FormatViewer from '@/kernel/Player/FormatViewer';
 import QualityViewer from '@/kernel/Player/QualityViewer';
 import TransmissionRateViewer from '@/kernel/Player/TransmissionRateViewer';
+import FullscreenControl from '@/kernel/Player/FullscreenControl';
 
 const cn = 'Control-Panel';
 
@@ -31,6 +32,7 @@ const ControlPanel = () => {
                 <FormatViewer />
                 <QualityViewer />
                 <TransmissionRateViewer />
+                <FullscreenControl />
             </div>
         </div>
     );
