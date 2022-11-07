@@ -1,7 +1,7 @@
 import type { ForwardRefRenderFunction } from 'react';
 import type { PlayerRef, PlayerProps } from '@/index.d';
 import * as React from 'react';
-import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
+import { forwardRef, useId, useImperativeHandle, useMemo, useRef } from 'react';
 import '@/assets/styles/global.scss';
 import { classes } from '@/utils/methods/classes';
 import useRndPlayerStore from '@/store/useRndPlayerStore';
@@ -13,7 +13,6 @@ import { PlayerContext, playerContextDefaultValue } from '@/utils/hooks/usePlaye
 import { Video } from '@/kernel/Player/Video';
 import PlayerController from '@/kernel/Player/PlayerController';
 import { useResizing } from '@/utils/hooks/useResizing';
-import { randomString } from '@/utils/methods/randomString';
 import { pcn } from '@/kernel/config';
 
 const cn = 'Player';
@@ -26,6 +25,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     },
     ref
 ) => {
+    const uuid = useId();
     const videoEleRef = useRef<HTMLVideoElement | null>(null);
     const videoContainerEleRef = useRef<HTMLDivElement | null>(null);
 
@@ -33,11 +33,6 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     const videoProperties = useVideo(videoEleRef.current);
     const { playerStore, playerStoreDispatch } = usePlayerStore();
     const { setState } = useRndPlayerStore;
-
-    const uuid = useMemo(
-        () => randomString(),
-        []
-    );
 
     const playerContextValue = useMemo(
         () => Object.assign(
@@ -56,7 +51,6 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         [
             playerStore,
             playerStoreDispatch,
-            uuid,
             videoEleRef.current,
             videoContainerEleRef.current,
             { ...rest }
