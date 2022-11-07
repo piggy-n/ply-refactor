@@ -2,11 +2,11 @@ import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 // import RndPlayer from '@/kernel/RndPlayer';
 import Player from '@/kernel/Player';
-// import { randomString } from '@/utils/methods/randomString';
 
 const Demo = () => {
     const [url, setUrl] = React.useState('https://www.w3schools.com/html/mov_bbb.mp4');
     const [control, setControl] = React.useState(false);
+    const inputRef = React.useRef<string>('');
     return (
         <>
             <button
@@ -23,6 +23,11 @@ const Demo = () => {
             <button
                 onClick={() => setControl(!control)}>
                 设控制
+            </button>
+            TOKEN：
+            <input onChange={v => inputRef.current = v.target.value} />
+            <button onClick={() => localStorage.setItem('accessToken', inputRef.current)}>
+                设token
             </button>
             <div style={{
                 width: '100vw',

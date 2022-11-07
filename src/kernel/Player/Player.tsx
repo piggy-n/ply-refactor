@@ -14,6 +14,7 @@ import { Video } from '@/kernel/Player/Video';
 import PlayerController from '@/kernel/Player/PlayerController';
 import { useResizing } from '@/utils/hooks/useResizing';
 import { pcn } from '@/kernel/config';
+import { StreamPlayer } from '@/utils/methods/streamPlayer';
 
 const cn = 'Player';
 const cnPrefix = `${pcn}-${cn.toLowerCase()}`;
@@ -26,12 +27,18 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     ref
 ) => {
     const uuid = useId();
+    const { playerStore, playerStoreDispatch } = usePlayerStore();
+
     const videoEleRef = useRef<HTMLVideoElement | null>(null);
     const videoContainerEleRef = useRef<HTMLDivElement | null>(null);
+    const streamPlayerRef = useRef<StreamPlayer>(
+        new StreamPlayer({
+            dispatch: playerStoreDispatch
+        })
+    );
 
     const videoMethods = useVideoMethods();
     const videoProperties = useVideo(videoEleRef.current);
-    const { playerStore, playerStoreDispatch } = usePlayerStore();
     const { setState } = useRndPlayerStore;
 
     const playerContextValue = useMemo(
@@ -42,6 +49,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
                 playerStore,
                 playerStoreDispatch,
                 uuid,
+                streamPlayer: streamPlayerRef.current,
                 videoProperties,
                 videoEle: videoEleRef.current,
                 videoContainerEle: videoContainerEleRef.current,

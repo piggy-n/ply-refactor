@@ -140,7 +140,6 @@ export class StreamPlayer {
     }
 
     start(ele: HTMLVideoElement, url: string) {
-        this.stop();
         if (!ele || !url) return;
 
         this.ele = ele;
@@ -166,5 +165,31 @@ export class StreamPlayer {
             this.MP4BoxFile.stop();
             this.MP4BoxFile = undefined;
         }
+
+        if (this.sourceBuffer) {
+            this.sourceBuffer.removeEventListener('updateend', this.loadHandler!);
+            this.mediaSource?.removeSourceBuffer(this.sourceBuffer);
+            this.sourceBuffer = undefined;
+        }
+
+        if (this.mediaSource) {
+            this.mediaSource.removeEventListener('sourceopen', this.sourceOpenHandler!);
+            this.mediaSource = undefined;
+        }
+
+        if (this.transmissionRateInterval) {
+            clearInterval(this.transmissionRateInterval);
+        }
+
+        this.ele = undefined;
+        this.url = undefined;
+        this.mime = undefined;
+        this.streaming = false;
+        this.arrayBuffer = [];
+
+        this.dispatch({
+            mime: '',
+            transmissionRate: 0,
+        });
     }
 }

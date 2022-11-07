@@ -9,9 +9,20 @@ const VanillaVideo: ForwardRefRenderFunction<HTMLVideoElement | null> = (
     _,
     videoEleRef
 ) => {
-    const { url = '', videoEle, videoEleOpts, playerStoreDispatch } = useContext(PlayerContext);
+    const {
+        url = '',
+        videoEle,
+        videoEleOpts,
+        playerStoreDispatch,
+        streamPlayer,
+    } = useContext(PlayerContext);
 
-    usePlayer(playerStoreDispatch, videoEle, url);
+    usePlayer(
+        playerStoreDispatch,
+        videoEle,
+        url,
+        streamPlayer
+    );
 
     return (
         url
