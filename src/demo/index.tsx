@@ -2,13 +2,20 @@ import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 // import RndPlayer from '@/kernel/RndPlayer';
 import Player from '@/kernel/Player';
+import { useRef } from 'react';
 
 const Demo = () => {
     const [url, setUrl] = React.useState('https://www.w3schools.com/html/mov_bbb.mp4');
     const [control, setControl] = React.useState(false);
     const inputRef = React.useRef<string>('');
+    const urlRef = useRef<string>('');
     return (
         <>
+            <p>https://www.w3schools.com/html/mov_bbb.mp4</p>
+            <p>https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/prod/file/2021/08/31/540p.mp4</p>
+            <p>https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/test/file/2021/07/01/haiwang.mp4</p>
+            <p>wss://lzz.enbo12119.com/live/1557972012493889538/101.live.mp4?token=</p>
+            <br />
             <button
                 onClick={() => setUrl('https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/prod/file/2021/08/31/540p.mp4')}>
                 设url
@@ -24,6 +31,13 @@ const Demo = () => {
                 onClick={() => setControl(!control)}>
                 设控制
             </button>
+            <br />
+            URL:
+            <input onChange={v => urlRef.current = v.target.value} style={{ width: '800px' }} />
+            <button onClick={() => setUrl(urlRef.current)}>
+                设url
+            </button>
+            <br />
             TOKEN：
             <input onChange={v => inputRef.current = v.target.value} />
             <button onClick={() => localStorage.setItem('accessToken', inputRef.current)}>
