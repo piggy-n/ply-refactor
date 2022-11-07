@@ -1,4 +1,4 @@
-// import MP4Box from 'mp4box';
+import MP4Box from 'mp4box';
 import type { Dispatch } from 'react';
 import type { PlayerStoreState } from '@/store/usePlayerStore';
 
@@ -31,9 +31,140 @@ export class StreamPlayer {
         this.transmissionRate = 0;
     }
 
-    bindFunc(obj: Record<string, unknown>, func: () => void) {
+    bindFunc(obj: this, func: () => void) {
         return function () {
             func.apply(obj, arguments);
         };
+    }
+
+    load() {
+        if (this.sourceBuffer?.updating) return;
+
+        if (this.arrayBuffer.length > 0) {
+            const arrayBuffer = this.arrayBuffer.shift();
+
+            if (arrayBuffer && this.sourceBuffer) {
+                try {
+                    this.sourceBuffer.appendBuffer(arrayBuffer);
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        } else {
+            this.streaming = false;
+        }
+    }
+
+    onMessage(data: any, byteLength: number) {
+        this.transmissionRate += byteLength / 1024;
+
+        if (!this.mime) {
+            data.fileStart = 0;
+            this.MP4BoxFile?.appendBuffer(data);
+        }
+
+        if (this.mime && !this.streaming) {
+            const arrayBuffer = this.arrayBuffer.shift();
+
+            if (arrayBuffer && this.sourceBuffer) {
+                try {
+                    this.sourceBuffer.appendBuffer(arrayBuffer);
+                    this.streaming = true;
+                } catch (e) {
+                    console.log(e);
+                    this.stop();
+                }
+            }
+        }
+
+        this.arrayBuffer.push(data);
+    }
+
+    sourceOpen() {
+        this.ws = new WebSocket(this.url!);
+        this.ws.binaryType = 'arraybuffer';
+
+        this.ws.onmessage = (e) => {
+            this.onMessage(e.data, e.data.byteLength);
+        };
+
+        this.ws.onopen = () => {
+            this.transmissionRateInterval = setInterval(
+                () => {
+                    this.dispatch({
+                        transmissionRate: this.transmissionRate
+                    });
+                    this.transmissionRate = 0;
+                },
+                1000
+            );
+
+            this.connectionTimes = 0;
+        };
+
+        this.ws.onclose = () => {
+            this.connectionTimes++;
+
+            if (this.connectionTimes <= 3) {
+                this.ws = new WebSocket(this.url!);
+            }
+        };
+
+        this.ws.onerror = () => {
+            this.ws?.close();
+            this.MP4BoxFile?.stop();
+        };
+    }
+
+    registerEvents() {
+        this.MP4BoxFile.onError = () => {
+            this.stop();
+        };
+
+        this.MP4BoxFile.onReady = (info: any) => {
+            if (info.mime && MediaSource.isTypeSupported(info.mime)) {
+                this.mime = info.mime;
+                this.sourceBuffer = this.mediaSource?.addSourceBuffer(info.mime);
+                this.loadHandler = this.bindFunc(this, this.load);
+
+                if (this.sourceBuffer) {
+                    this.sourceBuffer.mode = 'sequence';
+                    this.sourceBuffer.addEventListener('updateend', this.loadHandler);
+                }
+
+                this.dispatch({
+                    mime: this.mime?.includes('hvc1') ? 'H.265' : 'H.264',
+                });
+            }
+        };
+    }
+
+    start(ele: HTMLVideoElement, url: string) {
+        this.stop();
+        if (!ele || !url) return;
+
+        this.ele = ele;
+        this.url = url;
+        this.mediaSource = new MediaSource();
+        this.sourceOpenHandler = this.bindFunc(this, this.sourceOpen);
+        this.mediaSource.addEventListener('sourceopen', this.sourceOpenHandler);
+        this.ele.src = URL.createObjectURL(this.mediaSource);
+        this.MP4BoxFile = MP4Box.createFile();
+        this.registerEvents();
+    }
+
+    stop() {
+        if (this.ws) {
+            this.ws.close();
+            this.ws.onopen = null;
+            this.ws.onmessage = null;
+            this.ws.onclose = null;
+            this.ws = undefined;
+        }
+
+        if (this.MP4BoxFile) {
+            this.MP4BoxFile.stop();
+            this.MP4BoxFile = undefined;
+        }
     }
 }
