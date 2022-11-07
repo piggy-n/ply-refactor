@@ -1,7 +1,7 @@
-import { Icon } from '@/index';
 import * as React from 'react';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
+import Icon from '@/components/CommonComponents/Icon';
 
 const PlayButton = () => {
     const {

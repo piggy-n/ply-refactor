@@ -1,4 +1,4 @@
-import Icon from '@/components/CommonComponents/Icon';
+import Player from '@/kernel/Player';
 
-export default Icon;
-export { Icon };
+export { Player };
+export default Player;
