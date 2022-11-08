@@ -20,7 +20,12 @@ const Loading = () => {
         }
     } = useContext(PlayerContext);
 
-    useLoading(!!buffering, playerStoreDispatch, videoEle, videoProperties);
+    useLoading(
+        !!buffering,
+        playerStoreDispatch,
+        videoEle,
+        videoProperties
+    );
 
     return (
         loading

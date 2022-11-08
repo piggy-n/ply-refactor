@@ -8,7 +8,7 @@ const PlayButton = () => {
         playerStore: {
             loading
         },
-        videoProperties:{
+        videoProperties: {
             playing,
             ended,
             error
@@ -33,9 +33,7 @@ const PlayButton = () => {
 
             if (isPaused) {
                 timerRef.current = setTimeout(
-                    () => {
-                        setVisible(true);
-                    },
+                    () => setVisible(true),
                     100
                 );
             }
