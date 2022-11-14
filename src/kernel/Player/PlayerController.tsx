@@ -43,7 +43,7 @@ const PlayerController = () => {
     const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const playerControllerMouseStatusHandler = (status: 'move' | 'leave') => {
+    const mouseHandler = (status: 'move' | 'leave') => {
         if (status === 'move') {
             mouseState.mouseIsMoving = true;
             mouseState.mouseIsOnController = false;
@@ -92,9 +92,9 @@ const PlayerController = () => {
         changePlayStatusHandler && changePlayStatusHandler();
     };
 
-    const mouseAndControllerStyleChangeHandler = () => {
+    const styleChangeHandler = () => {
         if (mouseState.mouseIsMoving) {
-            playerControllerMouseStatusHandler('leave');
+            mouseHandler('leave');
 
             playerStoreDispatch({
                 controlled: !resizing && !ended,
@@ -118,7 +118,7 @@ const PlayerController = () => {
     };
 
     useRafInterval(
-        mouseAndControllerStyleChangeHandler,
+        styleChangeHandler,
         200,
         {
             immediate: true,
@@ -128,14 +128,14 @@ const PlayerController = () => {
     return (
         controllable && url
             ? <div
-                className={classes(cn, '', { [`${pcn}-dark-mask`]: ended && url && !loading })}
+                className={classes(cn, '', { [`${pcn}-dark-mask`]: ended && !loading })}
                 onMouseEnter={() => playerStoreDispatch({ controlled: !resizing && !ended })}
                 onMouseLeave={() => playerStoreDispatch({ controlled: false })}
             >
                 <div
                     className={classes(cn, 'wrapper')}
-                    onMouseMove={() => playerControllerMouseStatusHandler('move')}
-                    onMouseLeave={() => playerControllerMouseStatusHandler('leave')}
+                    onMouseMove={() => mouseHandler('move')}
+                    onMouseLeave={() => mouseHandler('leave')}
                     onClick={clickHandler}
                 />
                 <div
