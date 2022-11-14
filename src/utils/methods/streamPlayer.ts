@@ -139,20 +139,29 @@ export class StreamPlayer {
         };
     }
 
+    init() {
+        this.mediaSource = new MediaSource();
+        this.sourceOpenHandler = this.bindFunc(this, this.sourceOpen);
+        this.mediaSource.addEventListener('sourceopen', this.sourceOpenHandler);
+        this.ele!.src = URL.createObjectURL(this.mediaSource);
+        this.MP4BoxFile = MP4Box.createFile();
+        this.registerEvents();
+    }
+
+    play() {
+        if (!this.ele || !this.url) return;
+        this.init();
+    }
+
     start(ele: HTMLVideoElement, url: string) {
         if (!ele || !url) return;
 
         this.ele = ele;
         this.url = url;
-        this.mediaSource = new MediaSource();
-        this.sourceOpenHandler = this.bindFunc(this, this.sourceOpen);
-        this.mediaSource.addEventListener('sourceopen', this.sourceOpenHandler);
-        this.ele.src = URL.createObjectURL(this.mediaSource);
-        this.MP4BoxFile = MP4Box.createFile();
-        this.registerEvents();
+        this.init();
     }
 
-    stop() {
+    pause() {
         if (this.ws) {
             this.ws.close();
             this.ws.onopen = null;
@@ -163,7 +172,6 @@ export class StreamPlayer {
 
         if (this.MP4BoxFile) {
             this.MP4BoxFile.stop();
-            this.MP4BoxFile = undefined;
         }
 
         if (this.sourceBuffer) {
@@ -181,8 +189,6 @@ export class StreamPlayer {
             clearInterval(this.transmissionRateInterval);
         }
 
-        this.ele = undefined;
-        this.url = undefined;
         this.mime = undefined;
         this.streaming = false;
         this.arrayBuffer = [];
@@ -190,6 +196,22 @@ export class StreamPlayer {
         this.dispatch({
             mime: '',
             transmissionRate: 0,
+        });
+    }
+
+    stop() {
+        this.pause();
+        this.MP4BoxFile = undefined;
+        this.ele = undefined;
+        this.url = undefined;
+    }
+
+    reload() {
+        this.pause();
+        this.play();
+
+        this.dispatch({
+            'mime': '',
         });
     }
 }
