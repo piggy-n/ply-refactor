@@ -23,7 +23,9 @@ export const usePlayer = (
     useEffect(
         () => {
             if (!ele) {
-                dispatch({ loading: false });
+                dispatch({
+                    loading: false
+                });
                 return;
             }
 

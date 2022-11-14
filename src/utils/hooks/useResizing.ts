@@ -12,10 +12,14 @@ export const useResizing = (
 
     useEffect(
         () => {
-            dispatch({ resizing: true });
+            dispatch({
+                resizing: true
+            });
 
             resizingTimerRef.current = setTimeout(
-                () => dispatch({ resizing: false }),
+                () => dispatch({
+                    resizing: false
+                }),
                 300
             );
 

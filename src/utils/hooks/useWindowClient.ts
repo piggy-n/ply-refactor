@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export interface useWindowSizeType {
+interface useWindowSizeType {
     clientX: number;
     clientY: number;
 }
