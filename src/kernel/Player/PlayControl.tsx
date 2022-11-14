@@ -10,6 +10,7 @@ const cn = 'Play-Control';
 const PlayControl = () => {
     const {
         playerStoreDispatch,
+        streamPlayer,
         playerStore: {
             live,
             error
@@ -24,7 +25,7 @@ const PlayControl = () => {
         if (error) return;
 
         if (live) {
-            console.log('live');
+            playing ? streamPlayer.pause() : streamPlayer.play();
         }
 
         playerStoreDispatch({

@@ -14,7 +14,7 @@ const Demo = () => {
             <p>https://www.w3schools.com/html/mov_bbb.mp4</p>
             <p>https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/prod/file/2021/08/31/540p.mp4</p>
             <p>https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/test/file/2021/07/01/haiwang.mp4</p>
-            <p>wss://lzz.enbo12119.com/live/1557972012493889538/101.live.mp4?token=</p>
+            <p>wss://lzz.enbo12119.com/live/1560452004754677761/101.live.mp4?token=</p>
             <br />
             <button
                 onClick={() => setUrl('https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/prod/file/2021/08/31/540p.mp4')}>

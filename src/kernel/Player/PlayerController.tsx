@@ -20,8 +20,10 @@ const PlayerController = () => {
         fullScreen,
         playerStoreDispatch,
         videoContainerEle,
-        videoProperties:{
+        streamPlayer,
+        videoProperties: {
             ended,
+            playing,
             changePlayStatusHandler
         },
         playerStore: {
@@ -80,7 +82,7 @@ const PlayerController = () => {
             });
         } else {
             if (live) {
-                console.log('live');
+                playing ? streamPlayer.pause() : streamPlayer.play();
             }
 
             playerStoreDispatch({
