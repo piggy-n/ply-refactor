@@ -77,10 +77,22 @@ export class StreamPlayer {
             }
         }
 
+        if (this.ele && this.ele.duration - this.ele.currentTime > 0.9) {
+            this.ele.currentTime = this.ele.duration - 0.5;
+        }
+
         this.arrayBuffer.push(data);
     }
 
     sourceOpen() {
+        if (this.mediaSource) {
+            try {
+                this.mediaSource.duration = 1;
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
         this.ws = new WebSocket(this.url!);
         this.ws.binaryType = 'arraybuffer';
 
