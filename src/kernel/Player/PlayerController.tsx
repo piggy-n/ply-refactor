@@ -43,19 +43,9 @@ const PlayerController = () => {
     const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const mouseHandler = (status: 'move' | 'leave') => {
-        if (status === 'move') {
-            mouseState.mouseIsMoving = true;
-            mouseState.mouseIsOnController = false;
-        }
-
-        if (status === 'leave') {
-            mouseState.mouseIsMoving = false;
-        }
-    };
-
     const clickHandler = () => {
         if (error) return;
+
         mouseState.mouseClickCount += 1;
 
         clickTimeoutRef.current && clearTimeout(clickTimeoutRef.current);
@@ -89,12 +79,13 @@ const PlayerController = () => {
                 loading: false
             });
         }
+
         changePlayStatusHandler && changePlayStatusHandler();
     };
 
     const styleChangeHandler = () => {
         if (mouseState.mouseIsMoving) {
-            mouseHandler('leave');
+            mouseState.mouseIsMoving = false;
 
             playerStoreDispatch({
                 controlled: !resizing && !ended,
@@ -134,8 +125,11 @@ const PlayerController = () => {
             >
                 <div
                     className={classes(cn, 'wrapper')}
-                    onMouseMove={() => mouseHandler('move')}
-                    onMouseLeave={() => mouseHandler('leave')}
+                    onMouseMove={() => {
+                        mouseState.mouseIsMoving = true;
+                        mouseState.mouseIsOnController = false;
+                    }}
+                    onMouseLeave={() => mouseState.mouseIsMoving = false}
                     onClick={clickHandler}
                 />
                 <div
