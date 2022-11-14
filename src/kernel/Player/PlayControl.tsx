@@ -15,8 +15,9 @@ const PlayControl = () => {
             live,
             error
         },
-        videoProperties:{
+        videoProperties: {
             playing,
+            readyState,
             changePlayStatusHandler
         }
     } = useContext(PlayerContext);
@@ -24,7 +25,7 @@ const PlayControl = () => {
     const clickHandler = () => {
         if (error) return;
 
-        if (live) {
+        if (live && readyState !== 1) {
             playing ? streamPlayer.pause() : streamPlayer.play();
         }
 

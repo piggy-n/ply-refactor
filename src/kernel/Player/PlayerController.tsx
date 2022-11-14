@@ -24,6 +24,7 @@ const PlayerController = () => {
         videoProperties: {
             ended,
             playing,
+            readyState,
             changePlayStatusHandler
         },
         playerStore: {
@@ -71,7 +72,7 @@ const PlayerController = () => {
                 controlled: !resizing && !ended
             });
         } else {
-            if (live) {
+            if (live && readyState !== 1) {
                 playing ? streamPlayer.pause() : streamPlayer.play();
             }
 
