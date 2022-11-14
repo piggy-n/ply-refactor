@@ -26,16 +26,22 @@ export const useLoading = (
 
             if (inBuffer) {
                 loadingTimerRef.current = setTimeout(
-                    () => dispatch({ loading: true }),
+                    () => dispatch({
+                        loading: true
+                    }),
                     750
                 );
             }
 
             if (inPlay || inReady) {
-                dispatch({ loading: false });
+                dispatch({
+                    loading: false
+                });
             }
 
-            dispatch({ error: inError });
+            dispatch({
+                error: inError
+            });
         },
         [
             playing,

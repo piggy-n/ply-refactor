@@ -14,6 +14,7 @@ const QualityViewer = () => {
             videoSize
         }
     } = useContext(PlayerContext);
+
     const { videoWidth } = videoSize || { videoWidth: 0 };
     const [quality, setQuality] = useState<QualityType>();
 

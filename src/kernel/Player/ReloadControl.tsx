@@ -13,10 +13,15 @@ const ReloadControl = () => {
             live
         },
         streamPlayer,
-        videoEle
+        videoEle,
+        playerStoreDispatch
     } = useContext(PlayerContext);
 
     const clickHandler = () => {
+        playerStoreDispatch({
+            loading: true
+        });
+
         live ? streamPlayer.reload() : videoEle?.load();
     };
 
