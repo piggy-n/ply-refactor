@@ -17,11 +17,13 @@ const Loading = () => {
         playerStore: {
             buffering,
             loading,
+            live,
         }
     } = useContext(PlayerContext);
 
     useLoading(
         !!buffering,
+        !!live,
         playerStoreDispatch,
         videoEle,
         videoProperties

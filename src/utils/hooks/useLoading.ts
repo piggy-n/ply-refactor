@@ -5,6 +5,7 @@ import type { Dispatch } from 'react';
 
 export const useLoading = (
     buffering: boolean,
+    live: boolean,
     dispatch: Dispatch<PlayerStoreState>,
     ele: HTMLVideoElement | null,
     videoProperties: ReturnType<typeof useVideo>
@@ -18,7 +19,7 @@ export const useLoading = (
             const inBuffer = playing && buffering;
             const inReady = !ele?.autoplay && readyState === 4;
             const inPlay = playing && [1, 2].includes(networkState) && [3, 4].includes(readyState);
-            const inError = [0, 3].includes(networkState) || readyState === 0;
+            const inError = [0, 3].includes(networkState) || live ? [0, 1].includes(readyState) : readyState === 0;
 
             if (loadingTimerRef.current) {
                 clearTimeout(loadingTimerRef.current);
