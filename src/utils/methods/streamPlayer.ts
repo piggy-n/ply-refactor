@@ -194,7 +194,6 @@ export class StreamPlayer {
         this.arrayBuffer = [];
 
         this.dispatch({
-            mime: '',
             transmissionRate: 0,
         });
     }
@@ -204,6 +203,10 @@ export class StreamPlayer {
         this.MP4BoxFile = undefined;
         this.ele = undefined;
         this.url = undefined;
+
+        this.dispatch({
+            mime: '',
+        });
     }
 
     reload() {

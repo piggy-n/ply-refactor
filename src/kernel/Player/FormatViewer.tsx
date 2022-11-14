@@ -11,11 +11,14 @@ const FormatViewer = () => {
         playerStore: {
             mime,
             live
+        },
+        videoProperties: {
+            readyState
         }
     } = useContext(PlayerContext);
 
     return (
-        live && mime
+        live && mime && readyState > 0
             ? <div className={classes(cn, '')}>
                 {mime}
             </div>
