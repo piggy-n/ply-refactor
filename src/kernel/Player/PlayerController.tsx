@@ -68,7 +68,7 @@ const PlayerController = () => {
     const pauseOrReplayHandler = () => {
         if (ended) {
             playerStoreDispatch({
-                controlled: !resizing && !ended
+                controlled: !resizing
             });
         } else {
             if (error) return;
