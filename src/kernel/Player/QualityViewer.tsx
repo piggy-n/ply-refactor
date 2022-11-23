@@ -13,9 +13,6 @@ const QualityViewer = () => {
         videoProperties: {
             videoSize,
         },
-        playerStore: {
-            error
-        }
     } = useContext(PlayerContext);
 
     const { videoWidth } = videoSize || { videoWidth: 0 };
@@ -47,7 +44,7 @@ const QualityViewer = () => {
     );
 
     return (
-        videoWidth > 0 && !error
+        videoWidth > 0
             ? <div className={classes(cn, '')}>
                 {quality?.enName}
             </div>

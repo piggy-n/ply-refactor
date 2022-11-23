@@ -10,7 +10,6 @@ const TransmissionRateViewer = () => {
         playerStore: {
             transmissionRate = 0,
             live,
-            error
         }
     } = useContext(PlayerContext);
 
@@ -22,7 +21,7 @@ const TransmissionRateViewer = () => {
     );
 
     return (
-        live && !error
+        live
             ? <div className={classes(cn, '')}>
                 {rate}
             </div>

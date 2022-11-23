@@ -11,12 +11,11 @@ const FormatViewer = () => {
         playerStore: {
             mime,
             live,
-            error
         }
     } = useContext(PlayerContext);
 
     return (
-        live && mime && !error
+        live && mime
             ? <div className={classes(cn, '')}>
                 {mime}
             </div>
