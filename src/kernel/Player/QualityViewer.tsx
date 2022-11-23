@@ -13,11 +13,17 @@ const QualityViewer = () => {
         videoProperties: {
             videoSize,
         },
+        url,
     } = useContext(PlayerContext);
 
     const { videoWidth } = videoSize || { videoWidth: 0 };
     const [quality, setQuality] = useState<QualityType | { enName: string }>(
         { enName: '' }
+    );
+
+    useEffect(
+        () => setQuality({ enName: '' }),
+        [url]
     );
 
     useEffect(
