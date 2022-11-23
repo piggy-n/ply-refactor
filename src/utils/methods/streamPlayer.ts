@@ -224,9 +224,5 @@ export class StreamPlayer {
     reload() {
         this.pause();
         this.play();
-
-        this.dispatch({
-            'mime': '',
-        });
     }
 }

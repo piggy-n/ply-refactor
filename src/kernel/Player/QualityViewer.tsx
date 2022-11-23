@@ -16,7 +16,9 @@ const QualityViewer = () => {
     } = useContext(PlayerContext);
 
     const { videoWidth } = videoSize || { videoWidth: 0 };
-    const [quality, setQuality] = useState<QualityType>();
+    const [quality, setQuality] = useState<QualityType | { enName: string }>(
+        { enName: '' }
+    );
 
     useEffect(
         () => {
@@ -44,11 +46,9 @@ const QualityViewer = () => {
     );
 
     return (
-        videoWidth > 0
-            ? <div className={classes(cn, '')}>
-                {quality?.enName}
-            </div>
-            : <></>
+        <div className={classes(cn, '')}>
+            {quality?.enName}
+        </div>
     );
 };
 
