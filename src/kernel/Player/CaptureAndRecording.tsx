@@ -47,34 +47,36 @@ const CaptureAndRecording = () => {
     };
 
     return (
-        <div className={classes(cn, '')}>
-            <Icon
-                name={both ? st : (os ? slg : rs)}
-                size={18}
-                title={os ? '截图' : '录像'}
-                onClick={clickHandler}
-            />
+        screenshot || recording ?
+            <div className={classes(cn, '')}>
+                <Icon
+                    name={both ? st : (os ? slg : rs)}
+                    size={18}
+                    title={os ? '截图' : '录像'}
+                    onClick={clickHandler}
+                />
 
-            {
-                visible &&
-                <div className={classes(cn, 'both')}>
-                    <div
-                        className={classes(cn, 'item')}
-                        onClick={screenshotHandler}
-                    >
-                        <Icon name={ssm} />
-                        <p>截图</p>
+                {
+                    visible &&
+                    <div className={classes(cn, 'both')}>
+                        <div
+                            className={classes(cn, 'item')}
+                            onClick={screenshotHandler}
+                        >
+                            <Icon name={ssm} />
+                            <p>截图</p>
+                        </div>
+                        <div
+                            className={classes(cn, 'item')}
+                            onClick={recordingHandler}
+                        >
+                            <Icon name={rs} />
+                            <p>录制</p>
+                        </div>
                     </div>
-                    <div
-                        className={classes(cn, 'item')}
-                        onClick={recordingHandler}
-                    >
-                        <Icon name={rs} />
-                        <p>录制</p>
-                    </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+            : null
     );
 };
 
