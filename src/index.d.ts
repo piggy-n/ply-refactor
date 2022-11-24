@@ -88,6 +88,8 @@ export interface PlayerProps<T = VideoHTMLAttributes<HTMLVideoElement>, K = HTML
     url?: string;
     controllable?: boolean;
     fullScreen?: boolean;
+    recording?: boolean;
+    screenshot?: boolean;
     videoContainerEleOpts?: K;
     videoEleOpts?: T;
 }

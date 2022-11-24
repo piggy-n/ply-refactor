@@ -22,6 +22,7 @@ export const playerContextDefaultValue: Partial<PlayerContextType> = {
     videoContainerEle: null,
     controllable: true,
     fullScreen: true,
+    screenshot: true,
 };
 
 export const PlayerContext = createContext<PlayerContextType>(<PlayerContextType>playerContextDefaultValue);

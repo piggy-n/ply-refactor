@@ -11,6 +11,7 @@ import FormatViewer from '@/kernel/Player/FormatViewer';
 import QualityViewer from '@/kernel/Player/QualityViewer';
 import TransmissionRateViewer from '@/kernel/Player/TransmissionRateViewer';
 import FullscreenControl from '@/kernel/Player/FullscreenControl';
+import CaptureAndRecording from '@/kernel/Player/CaptureAndRecording';
 
 const cn = 'Control-Panel';
 
@@ -32,6 +33,7 @@ const ControlPanel = () => {
                 <FormatViewer />
                 <QualityViewer />
                 <TransmissionRateViewer />
+                <CaptureAndRecording />
                 <FullscreenControl />
             </div>
         </div>
