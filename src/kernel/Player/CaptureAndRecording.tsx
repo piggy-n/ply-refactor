@@ -4,13 +4,16 @@ import '@/assets/styles/global.scss';
 import { useContext, useMemo, useState } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import Icon from '@/components/CommonComponents/Icon';
+import { createScreenshot } from '@/utils/methods/screenshot';
 
 const cn = 'Capture-And-Recording';
 
 const CaptureAndRecording = () => {
     const {
         screenshot,
-        recording
+        recording,
+        uuid,
+        videoEle
     } = useContext(PlayerContext);
 
     const [visible, setVisible] = useState(false);
@@ -38,7 +41,11 @@ const CaptureAndRecording = () => {
     );
 
     const screenshotHandler = () => {
-        console.log('screenshot');
+        createScreenshot({
+            videoEle: videoEle as HTMLVideoElement,
+            uuid,
+            eleId: 'player'
+        });
     };
 
     const recordingHandler = () => {
