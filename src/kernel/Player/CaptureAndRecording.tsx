@@ -1,15 +1,11 @@
 import { classes } from '@/utils/methods/classes';
 import * as React from 'react';
 import '@/assets/styles/global.scss';
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import Icon from '@/components/CommonComponents/Icon';
 
 const cn = 'Capture-And-Recording';
-const st = 'setting';
-const slg = 'screenshot-lg';
-const ssm = 'screenshot-sm';
-const rs = 'recording-start';
 
 const CaptureAndRecording = () => {
     const {
@@ -17,11 +13,29 @@ const CaptureAndRecording = () => {
         recording
     } = useContext(PlayerContext);
 
-    const both = screenshot && recording;
-    const os = screenshot && !recording;
-    const or = !screenshot && recording;
-
     const [visible, setVisible] = useState(false);
+
+    const state = useMemo(
+        () => {
+            if (screenshot && recording) {
+                return 'both';
+            }
+
+            if (screenshot && !recording) {
+                return 'screenshot';
+            }
+
+            if (!screenshot && recording) {
+                return 'recording';
+            }
+
+            return 'none';
+        },
+        [
+            screenshot,
+            recording
+        ]
+    );
 
     const screenshotHandler = () => {
         console.log('screenshot');
@@ -33,29 +47,32 @@ const CaptureAndRecording = () => {
     };
 
     const clickHandler = () => {
-        if (both) {
+        if (state === 'both') {
             setVisible(!visible);
         }
 
-        if (os) {
+        if (state === 'screenshot') {
             screenshotHandler();
         }
 
-        if (or) {
+        if (state === 'recording') {
             recordingHandler();
         }
     };
 
     return (
-        screenshot || recording ?
+        state !== 'none' ?
             <div className={classes(cn, '')}>
                 <Icon
-                    name={both ? st : (os ? slg : rs)}
+                    name={
+                        state === 'both' ? 'setting' : (
+                            state === 'screenshot' ? 'screenshot-lg' : 'recording-start'
+                        )
+                    }
                     size={18}
-                    title={os ? '截图' : '录像'}
+                    title={state === 'screenshot' ? '截图' : '录像'}
                     onClick={clickHandler}
                 />
-
                 {
                     visible &&
                     <div className={classes(cn, 'both')}>
@@ -63,14 +80,14 @@ const CaptureAndRecording = () => {
                             className={classes(cn, 'item')}
                             onClick={screenshotHandler}
                         >
-                            <Icon name={ssm} />
+                            <Icon name={'screenshot-sm'} />
                             <p>截图</p>
                         </div>
                         <div
                             className={classes(cn, 'item')}
                             onClick={recordingHandler}
                         >
-                            <Icon name={rs} />
+                            <Icon name={'recording-start'} />
                             <p>录制</p>
                         </div>
                     </div>
