@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import { PlayerContext } from '@/utils/hooks/usePlayerContext';
 import '@/assets/styles/global.scss';
 import PlayControl from '@/kernel/Player/PlayControl';
-import { pcn } from '@/kernel/config';
 import ReloadControl from '@/kernel/Player/ReloadControl';
 import TimeViewer from '@/kernel/Player/TimeViewer';
 import FormatViewer from '@/kernel/Player/FormatViewer';
@@ -23,7 +22,7 @@ const ControlPanel = () => {
     } = useContext(PlayerContext);
 
     return (
-        <div className={classes(cn, '', { [`${pcn}-op-1`]: controlled })}>
+        <div className={classes(cn, '', { [`ws-op-1`]: controlled })}>
             <div className={classes(cn, 'left-warp')}>
                 <PlayControl />
                 <ReloadControl />

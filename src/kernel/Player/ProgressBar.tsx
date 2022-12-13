@@ -8,7 +8,6 @@ import useWindowClient from '@/utils/hooks/useWindowClient';
 import { percentToSeconds, toMinutesAndSeconds } from '@/utils/methods/time';
 import { hoverStylesHandler } from '@/utils/methods/hoverStylesHandler';
 import type { MouseEventHandler } from 'react';
-import { pcn } from '@/kernel/config';
 
 const cn = 'Progress-Bar';
 
@@ -200,7 +199,7 @@ const ProgressBar = () => {
 
     return (
         !live
-            ? <div className={classes(cn, '', { [`${pcn}-op-1`]: controlled })}>
+            ? <div className={classes(cn, '', { [`ws-op-1`]: controlled })}>
                 <div
                     ref={progressMaskRef}
                     className={classes(cn, 'mask')}

@@ -1,7 +1,7 @@
 import type { ForwardRefRenderFunction } from 'react';
 import type { PlayerRef, PlayerProps } from '@/index.d';
 import * as React from 'react';
-import { forwardRef, useId, useImperativeHandle, useMemo, useRef } from 'react';
+import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import '@/assets/styles/global.scss';
 import { classes } from '@/utils/methods/classes';
 import useRndPlayerStore from '@/store/useRndPlayerStore';
@@ -13,11 +13,10 @@ import { PlayerContext, playerContextDefaultValue } from '@/utils/hooks/usePlaye
 import { Video } from '@/kernel/Player/Video';
 import PlayerController from '@/kernel/Player/PlayerController';
 import { useResizing } from '@/utils/hooks/useResizing';
-import { pcn } from '@/kernel/config';
 import { StreamPlayer } from '@/utils/methods/streamPlayer';
+import { randomString } from '@/utils/methods/randomString';
 
 const cn = 'Player';
-const cnPrefix = `${pcn}-${cn.toLowerCase()}`;
 
 const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     {
@@ -26,7 +25,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     },
     ref
 ) => {
-    const uuid = useId();
+    const uuid = useMemo(() => randomString(), []);
     const { playerStore, playerStoreDispatch } = usePlayerStore();
 
     const videoEleRef = useRef<HTMLVideoElement | null>(null);
@@ -83,7 +82,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
         <PlayerContext.Provider value={playerContextValue}>
             <div
                 ref={videoContainerEleRef}
-                id={`${cnPrefix}-container-${uuid}`}
+                id={`player-${uuid}`}
                 className={classes(cn, '')}
                 onMouseOver={() => setState({ disableDrag: true })}
                 {...videoContainerEleOpts}

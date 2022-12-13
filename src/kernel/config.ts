@@ -20,8 +20,6 @@ const qualityObj: Record<QualityEnName, QualityType> = {
     UHD: { cnName: '超高清', key: '4k', enName: 'UHD' },
 };
 
-const pcn = 'ws';
-
 const DEFAULT_PLAYER_OPTS: PlayerOpts = {
     defaultPosition: {
         x: 0,
@@ -44,7 +42,6 @@ const mainDictionaries: Record<string, string> = {
 
 export {
     qualityObj,
-    pcn,
     DEFAULT_PLAYER_OPTS,
     headerDictionaries,
     mainDictionaries,
