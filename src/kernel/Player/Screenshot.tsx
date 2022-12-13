@@ -36,12 +36,12 @@ export const Screenshot: FC<Options> = (opts) => {
 
     useEffect(
         () => {
-            const divEle = screenshotDivRef.current;
+            const screenshotDiv = screenshotDivRef.current;
             const { canvasEle } = opts;
 
-            if (divEle && canvasEle) {
-                divEle.innerHTML = '';
-                divEle.appendChild(canvasEle);
+            if (screenshotDiv && canvasEle) {
+                screenshotDiv.innerHTML = '';
+                screenshotDiv.appendChild(canvasEle);
             }
 
             if (canvasEle) {
